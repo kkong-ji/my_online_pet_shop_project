@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
-      layout:decorate="~{layouts/layout1}">
-
-    <div layout:fragment="content">
-        본문 영역 입니다.
-    </div>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>파라미터 전달 예제</h1>
+<div th:text="${param1}"></div>
+<div th:text="${param2}"></div>
+</body>
 </html>
