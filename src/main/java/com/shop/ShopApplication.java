@@ -13,8 +13,4 @@ public class ShopApplication {
 		SpringApplication.run(ShopApplication.class, args);
 	}
 
-	@GetMapping(value = "/")
-	public String HelloWorld() {
-		return "Hello World";
-	}
 }
