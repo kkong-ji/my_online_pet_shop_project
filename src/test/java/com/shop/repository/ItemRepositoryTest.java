@@ -24,7 +24,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @SpringBootTest         // 통합 테스트를 위해 스프링 부트에서 제공하는 어노테이션
 @TestPropertySource(locations = "classpath:application-test.properties")       // 테스트 코드 실행시 application-test.properties에 같은 설정이 있다면 더 높은 우선순위 부여
 class ItemRepositoryTest {
