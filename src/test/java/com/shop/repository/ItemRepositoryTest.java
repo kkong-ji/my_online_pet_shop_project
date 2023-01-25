@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestPropertySource(locations = "classpath:application-test.properties")       // 테스트 코드 실행시 application-test.properties에 같은 설정이 있다면 더 높은 우선순위 부여
 class ItemRepositoryTest {
 
-    @PersistenceContext
-    EntityManager em;
+    @PersistenceContext                 // 영속성 컨텍스트 사용하기 위해
+    EntityManager em;                   // EntityManager 빈 주입
 
     @Autowired
     ItemRepository itemRepository;      // ItemRepository를 사용하기 위해 @Autowired 어노테이션을 이용해 Bean 주입
@@ -116,14 +116,14 @@ class ItemRepositoryTest {
     @DisplayName("Querydsl 조회 테스트1")
     public void queryDslTest() {
         this.createItemList();
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-        QItem qItem = QItem.item;
-        JPAQuery<Item> query = queryFactory.selectFrom(qItem)
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);     // JPAQueryFactory를 이용하여 쿼리를 동적으로 생성.
+        QItem qItem = QItem.item;                                   // Querydsl을 통해 쿼리를 생성하기 위해 플러그인을 통해 자동으로 생성된 QItem 객체 이용
+        JPAQuery<Item> query = queryFactory.selectFrom(qItem)       // 자바 소스코드지만 SQL문과 비슷하게 소스를 작성할 수 있음
                 .where(qItem.itemSellStatus.eq(ItemSellStatus.SELL))
                 .where(qItem.itemDetail.like("%" + "테스트 상품 상세 설명" + "%"))
                 .orderBy(qItem.price.desc());
 
-        List<Item> itemList = query.fetch();
+        List<Item> itemList = query.fetch();                        // JPAQuery 메소드 중 하나인 fetch를 이용해서 쿼리 결과를 리스트로 반환
 
         for(Item item : itemList) {
             System.out.println(item.toString());
@@ -163,22 +163,22 @@ class ItemRepositoryTest {
 
         this.createItemList2();
 
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();       // booleanBuilder는 쿼리에 들어갈 조건을 만들어주는 빌더
         QItem item = QItem.item;
 
         String itemDetail = "테스트 상품 상세 설명";
         int price = 10003;
         String itemSellStat = "SELL";
 
-        booleanBuilder.and(item.itemDetail.like("%" + itemDetail + "%"));
+        booleanBuilder.and(item.itemDetail.like("%" + itemDetail + "%"));   // 필요한 상품을 조회하는데 필요한 "and" 조건 추가
         booleanBuilder.and(item.price.gt(price));
 
-        if (StringUtils.equals(itemSellStat, ItemSellStatus.SELL)) {
+        if (StringUtils.equals(itemSellStat, ItemSellStatus.SELL)) {            // 상품의 판매상태가 SELL일 때만 booleanBuilder에 판매상태 조건을 동적으로 추가
             booleanBuilder.and(item.itemSellStatus.eq(ItemSellStatus.SELL));
         }
 
-        Pageable pageable = PageRequest.of(0, 5);
-        Page<Item> itemPagingResult = itemRepository.findAll(booleanBuilder, pageable);
+        Pageable pageable = PageRequest.of(0, 5);                     // 데이터를 페이징해 조회하도록 PageRequest.of() 메소드를 이용. 첫 번째 인자는 조회할 페이지의 번호, 두 번째 인자는 한 페이지당 조회할 데이터의 개수
+        Page<Item> itemPagingResult = itemRepository.findAll(booleanBuilder, pageable);   // findAll() 메소드를 이용해 조건에 맞는 데이터를 Page 객체로 받아옴
         System.out.println("total elements : " + itemPagingResult. getTotalElements());
 
         List<Item> resultItemList = itemPagingResult.getContent();

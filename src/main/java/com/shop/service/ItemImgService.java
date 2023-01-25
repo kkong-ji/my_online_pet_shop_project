@@ -16,8 +16,8 @@ import javax.transaction.Transactional;
 @Transactional
 public class ItemImgService {
 
-    @Value("${itemImgLocation}")
-    private String itemImgLocation;
+    @Value("${itemImgLocation}")                // @Value 어노테이션을 통해 application.properties 파일에 등록한 itemImgLocation 값을 불러와서
+    private String itemImgLocation;             // ItemImgLocation 변수에 넣어줌
 
     private final ItemImgRepository itemImgRepository;
 
@@ -31,7 +31,7 @@ public class ItemImgService {
         // 파일 업로드
         if (!StringUtils.isEmpty(oriImgName)) {
             imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
-            imgUrl = "/images/item" + imgName;
+            imgUrl = "/images/item/" + imgName;      // 저장한 상품 이미지를 불러올 경로를 설정
         }
 
         // 상품 이미지 정보 저장
@@ -41,7 +41,7 @@ public class ItemImgService {
 
     public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception {
         if(!itemImgFile.isEmpty()) {
-            ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
+            ItemImg savedItemImg = itemImgRepository.findById(itemImgId)        // 상품 이미지 아이디를 이용하여 기존에 저장했던 상품 이미지 엔티티 조회
                     .orElseThrow(EntityNotFoundException::new);
 
             // 기존 이미지 파일 삭제
@@ -52,7 +52,7 @@ public class ItemImgService {
             String oriImgName = itemImgFile.getOriginalFilename();
             String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
             String imgUrl = "/images/item/" + imgName;
-            savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
+            savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);            // 변경된 상품 이미지 정보 세팅.
         }
     }
 }

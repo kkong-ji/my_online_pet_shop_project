@@ -26,7 +26,7 @@ public class ItemImg extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="item_id")
-    private Item item;
+    private Item item;          // 상품 엔티티와 다대일 단방향 매핑. 지연 로딩을 설정하여 매핑된 상품 엔티티 정보가 필요할 경우 데이터를 조회
 
     public void updateItemImg(String oriImgName, String imgName, String imgUrl) {
         this.oriImgName = oriImgName;

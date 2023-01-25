@@ -17,21 +17,22 @@ import javax.validation.Valid;
 @RequestMapping("/members")
 @Controller
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberController {                 // 회원가입을 위한 컨트롤러
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping(value = "/new")
+    @GetMapping(value = "/new")                 // 회원가입 페이지로 이동할 수 있도록 메소드 작성
     public String memberForm(Model model) {
         model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
 
     @PostMapping(value = "/new")
-    public String newMember(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
+    public String newMember(@Valid MemberFormDto memberFormDto,         // 검증하려는 객체의 앞에 @Valid 어노테이션을 선언하고, 파라미터로 bindingResult 객체 추가
+                            BindingResult bindingResult, Model model) { // 검사 후 결과는 bindingResult에 담아줌.
 
-        if(bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()) {         // 에러가 있다면 회원 가입 페이지로 이동
             return "member/memberForm";
         }
 
@@ -39,7 +40,7 @@ public class MemberController {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);
         } catch (IllegalStateException e) {
-            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());     // 회원 가입 시 중복 회원 가입 예외가 발생하면 에러 메시지를 뷰로 전달
             return "member/memberForm";
         }
 

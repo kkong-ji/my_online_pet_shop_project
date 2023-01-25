@@ -33,8 +33,8 @@ public class OrderController {
 
     @PostMapping(value = "/order")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto
-            , BindingResult bindingResult, Principal principal){
-
+            , BindingResult bindingResult, Principal principal){                        // 스프링에서 비동기 처리를 할 때
+                                                                                        // @RequestBody와 @ResponseBody 어노테이션 사용
         if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -46,10 +46,10 @@ public class OrderController {
             return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
         }
 
-        String email = principal.getName();
-        Long orderId;
-
-        try {
+        String email = principal.getName();                                             // 현재 로그인 유저의 정보를 얻기 위해 @Controller 어노테이션
+        Long orderId;                                                                   // 선언된 클래스에서 메소드 인자로 principal 객체를 넘겨줄 경우 해당 겍체에 직접 접근 가능
+                                                                                        // principal 객체에서 현재 로그인한 회원의 이메일 정보 조회
+        try {                                                                           // 화면으로부터 넘어오는 주문 정보와 회원의 이메일 정보를 이용하여 주문 로직 호출
             orderId = orderService.order(orderDto, email);
         } catch(Exception e){
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

@@ -85,7 +85,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         return new PageImpl<>(content, pageable, total);
     }
 
-    private BooleanExpression itemNmLike(String searchQuery){
+    private BooleanExpression itemNmLike(String searchQuery){               // 검색어가 null이 아니면 상품명에 해당 검색어가 포함되는 상품을 조회하는 조건 반환
         return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemNm.like("%" + searchQuery + "%");
     }
 
@@ -96,7 +96,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 
         List<MainItemDto> content = queryFactory
                 .select(
-                        new QMainItemDto(
+                        new QMainItemDto(               // QMainItemDto의 생성자에 반환할 값들을 넣어줌
                                 item.id,
                                 item.itemNm,
                                 item.itemDetail,
@@ -104,7 +104,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 item.price)
                 )
                 .from(itemImg)
-                .join(itemImg.item, item)
+                .join(itemImg.item, item)               // itemImg와 item을 내부 조인
                 .where(itemImg.repimgYn.eq("Y"))
                 .where(itemNmLike(itemSearchDto.getSearchQuery()))
                 .orderBy(item.id.desc())

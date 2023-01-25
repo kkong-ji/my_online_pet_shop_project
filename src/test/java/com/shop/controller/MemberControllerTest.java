@@ -18,7 +18,7 @@ import javax.transaction.Transactional;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc                                               // MockMvc 테스트를 위해 @AutoConfigureMockMvc 어노테이션 선언
 @Transactional
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class MemberControllerTest {
@@ -27,7 +27,7 @@ public class MemberControllerTest {
     private MemberService memberService;
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc;                                        // 가짜 객체 선언
 
     @Autowired
     PasswordEncoder passwordEncoder;

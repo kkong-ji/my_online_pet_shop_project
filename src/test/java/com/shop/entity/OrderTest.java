@@ -64,15 +64,16 @@ public class OrderTest {
             orderItem.setCount(10);
             orderItem.setOrderPrice(1000);
             orderItem.setOrder(order);
-            order.getOrderItems().add(orderItem);
+            order.getOrderItems().add(orderItem);               // 아직 영속성 컨텍스트에 저장되지 않은 orderItem 엔티티를 order 엔티티에 담아줌
         }
 
-        orderRepository.saveAndFlush(order);
-        em.clear();
+        orderRepository.saveAndFlush(order);                    // order 엔티티를 저장하면서 강제로 flush 를 호출하여 영속성 컨텍스트에 있는 객체들을
+                                                                // 데이터베이스에 반영
+        em.clear();                                             // 영속성 컨텍스트의 상태를 초기화
 
-        Order savedOrder = orderRepository.findById(order.getId())
+        Order savedOrder = orderRepository.findById(order.getId())  // 영속성 컨텍스트를 초기화했기 때문에 DB에서 주문 엔티티를 조회.
                 .orElseThrow(EntityNotFoundException::new);
-        assertEquals(3, savedOrder.getOrderItems().size());
+        assertEquals(3, savedOrder.getOrderItems().size());  // orderItem 엔티티 3개가 실제로 DB에 저장되었는지 검사
     }
 
     public Order createOrder() {
@@ -108,16 +109,16 @@ public class OrderTest {
     @Test
     @DisplayName("지연 로딩 테스트")
     public void lazyLoadingTest() {
-        Order order = this.createOrder();
+        Order order = this.createOrder();                           // 기존에 만들었던 주문 생성 메소드를 이용하여 주문 데이터를 저장
         Long orderItemId = order.getOrderItems().get(0).getId();
         em.flush();
         em.clear();
 
-        OrderItem orderItem = orderItemRepository.findById(orderItemId)
-                .orElseThrow(EntityNotFoundException::new);
-        System.out.println("Order class: " + orderItem.getOrder().getClass());
+        OrderItem orderItem = orderItemRepository.findById(orderItemId)         // 영속성 컨텍스트의 상태 초기화 후 order 엔티티에 저장했던
+                .orElseThrow(EntityNotFoundException::new);                     // 주문 상품 아이디를 이용하여 orderItem을 DB에서 다시 조회
+        System.out.println("Order class: " + orderItem.getOrder().getClass());  // orderItem 엔티티에 있는 order 객체의 클래스를 출력. Order class가 출력되는 것을 확인
         System.out.println("==========================");
-        System.out.println("Order class : " + orderItem.getOrder().getClass());
+        orderItem.getOrder().getOrderDate();
         System.out.println("==========================");
     }
 }

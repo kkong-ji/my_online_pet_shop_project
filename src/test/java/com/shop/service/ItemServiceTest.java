@@ -36,7 +36,7 @@ public class ItemServiceTest {
     @Autowired
     ItemImgRepository itemImgRepository;
 
-    List<MultipartFile> createMultipartFiles() throws Exception {
+    List<MultipartFile> createMultipartFiles() throws Exception {           // MockMultipartFile 클래스를 이용하여 가짜 Multipart 리스트르 만들어서 반환
 
         List<MultipartFile> multipartFileList = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class ItemServiceTest {
     @DisplayName("상품 등록 테스트")
     @WithMockUser(username = "admin", roles = "ADMIN")
     void saveItem() throws Exception {
-        ItemFormDto itemFormDto = new ItemFormDto();
+        ItemFormDto itemFormDto = new ItemFormDto();        // 상품 등록 화면에서 입력 받는 상품 데이터를 세팅
         itemFormDto.setItemNm("테스트상품");
         itemFormDto.setItemSellStatus(ItemSellStatus.SELL);
         itemFormDto.setItemDetail("테스트 상품 입니다.");
@@ -63,13 +63,13 @@ public class ItemServiceTest {
 
 
         List<MultipartFile> multipartFileList = createMultipartFiles();
-        Long itemId = itemService.saveItem(itemFormDto, multipartFileList);
+        Long itemId = itemService.saveItem(itemFormDto, multipartFileList);     // 상품 데이터와 이미지 정보를 파라미터로 넘겨서 저장 후 저장된 상품의 아이디 값을 반환 값으로 리턴
 
         List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        assertEquals(itemFormDto.getItemNm(), item.getItemNm());
+        assertEquals(itemFormDto.getItemNm(), item.getItemNm());                // 입력한 상품 데이터와 실제로 저장된 상품 데이터가 같은지 확인
         assertEquals(itemFormDto.getItemSellStatus(), item.getItemSellStatus());
         assertEquals(itemFormDto.getItemDetail(), item.getItemDetail());
         assertEquals(itemFormDto.getPrice(), item.getPrice());

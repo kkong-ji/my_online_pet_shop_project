@@ -9,16 +9,16 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name="item")
+@Entity                                                 // Item 클래스를 entity로 설정
+@Table(name="item")                                     // Item 테이블과 매핑되도록 name을 item으로 지정
 @Getter
 @Setter
 @ToString
 public class Item extends BaseEntity {
 
-    @Id
-    @Column(name="item_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id                                                 // 기본키
+    @Column(name="item_id")                             // 테이블에 매핑될 컬럼 이름
+    @GeneratedValue(strategy = GenerationType.AUTO)     // 기본키 생성 전략
     private Long id;                                    // 상품 코드
 
     @Column(nullable = false, length = 50)

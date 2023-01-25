@@ -12,11 +12,11 @@ import java.util.UUID;
 public class FileService {
 
     public String uploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception {
-        UUID uuid = UUID.randomUUID();
+        UUID uuid = UUID.randomUUID();                                                          // UUID는 서로 다른 개체들을 구별하기 위해 이름을 부여할 때 사용.
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String savedFileName = uuid.toString() + extension;
+        String savedFileName = uuid.toString() + extension;                                     // UUID로 받은 값과 원래 파일의 이름의 확장자를 조합해서 저장될 파일 이름을 만듬
         String fileUploadFullUrl = uploadPath + "/" + savedFileName;
-        FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);
+        FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);                         // 바이트 단위의 출력을 내보내는 클래스
         fos.write(fileData);
         fos.close();
         return savedFileName;

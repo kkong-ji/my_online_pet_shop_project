@@ -23,11 +23,11 @@ public class ItemControllerTest {
 
     @Test
     @DisplayName("상품 등록 페이지 권한 테스트")
-    @WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", roles = "ADMIN")          // 현재 회원의 이름이 admin이고, role이 ADMIN인 유저가 로그인된 상태로 테스트를 할 수 있도록 해주는 어노테이션
     public void itemFormTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/admin/item/new"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/admin/item/new"))      // 상품 등록 페이지에 요청을 get 요청을 보냄
                 .andDo(print())
-                .andExpect((status().isOk()));
+                .andExpect((status().isOk()));                  // 응답 상태 코드가 정상인지 확인.
     }
 
     @Test
