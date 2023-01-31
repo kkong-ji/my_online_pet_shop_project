@@ -32,6 +32,7 @@
                     <a class="nav-link" href="/orders">구매이력</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a href="/oauth2/authorization/google" role="button" class="btn btn-outline-danger bi bi-google"> 구글로 로그인</a>
                     <a class="nav-link" href="/members/login">로그인</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
@@ -41,6 +42,7 @@
             <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
                 <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <a sec:authorize="isAuthenticated()">환영합니다. <span sec:authentication="name"></span>님!</span></a>
             </form>
         </div>
     </nav>

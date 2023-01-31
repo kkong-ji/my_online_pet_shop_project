@@ -1,17 +1,19 @@
 package com.shop.config;
 
+import com.shop.config.auth.PrincipalOauth2UserService;
 import com.shop.service.MemberService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
@@ -19,6 +21,10 @@ public class SecurityConfig {
 
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,6 +37,11 @@ public class SecurityConfig {
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))    // 로그아웃 URL
                 .logoutSuccessUrl("/")                  // 로그아웃 성공 시 이동할 URL
+                .and()                                  // OAuth
+                .oauth2Login()
+                .defaultSuccessUrl("/")
+                .userInfoEndpoint()                     // OAuth2 로그인 성공 후 가져올 설정들
+                .userService(principalOauth2UserService);  // 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
         ;
 
         http.authorizeRequests()                        // 시큐리티 처리에 HttpServletRequest를 이용한다는 것을 의미
@@ -46,9 +57,9 @@ public class SecurityConfig {
 
         return http.build();
     }
-
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder encodePassword() {
         return new BCryptPasswordEncoder();
     }
+
 }

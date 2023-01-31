@@ -4,14 +4,8 @@ import com.shop.dto.CartDetailDto;
 import com.shop.dto.CartItemDto;
 import com.shop.dto.CartOrderDto;
 import com.shop.dto.OrderDto;
-import com.shop.entity.Cart;
-import com.shop.entity.CartItem;
-import com.shop.entity.Item;
-import com.shop.entity.Member;
-import com.shop.repository.CartItemRepository;
-import com.shop.repository.CartRepository;
-import com.shop.repository.ItemRepository;
-import com.shop.repository.MemberRepository;
+import com.shop.entity.*;
+import com.shop.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +33,7 @@ public class CartService {
         Member member = memberRepository.findByEmail(email);
 
         Cart cart = cartRepository.findByMemberId(member.getId());
+
         if(cart == null){
             cart = Cart.createCart(member);
             cartRepository.save(cart);
