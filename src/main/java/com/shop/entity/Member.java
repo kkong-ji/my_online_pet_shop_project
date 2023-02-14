@@ -3,11 +3,9 @@ package com.shop.entity;
 import com.shop.constant.Role;
 import com.shop.dto.MemberFormDto;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 
 @Builder
 @Entity
@@ -50,7 +48,7 @@ public class Member extends BaseEntity{                     // 회원 정보 저
         member.setAddress(memberFormDto.getAddress());
         String password = passwordEncoder.encode(memberFormDto.getPassword());      // 스프링 시큐리티 설정 클래스에 등록한 BCryptPasswordEncoder Bean을 파라미터로 넘겨서 비밀번호 암호화
         member.setPassword(password);
-        member.setRole(Role.ADMIN);
+        member.setRole(Role.USER);
         return member;
     }
 

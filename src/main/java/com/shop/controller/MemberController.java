@@ -77,12 +77,9 @@ public class MemberController {                 // 회원가입을 위한 컨트
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         String member = principal.getUsername();
         System.out.println(member);
-        //User(id=2, username=11, password=$2a$10$m/1Alpm180jjsBpYReeml.AzvGlx/Djg4Z9/JDZYz8TJF1qUKd1fW, email=11@11, role=ROLE_USER, createTime=2022-01-30 19:07:43.213, provider=null, providerId=null)
 
         String user1 = principalDetails.getUsername();
         System.out.println(user1);
-        //User(id=2, username=11, password=$2a$10$m/1Alpm180jjsBpYReeml.AzvGlx/Djg4Z9/JDZYz8TJF1qUKd1fW, email=11@11, role=ROLE_USER, createTime=2022-01-30 19:07:43.213, provider=null, providerId=null)
-        //user == user1
 
         return member.toString();
     }

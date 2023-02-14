@@ -1,8 +1,11 @@
 package com.shop.service;
 
+import com.shop.constant.Role;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional                                              // 로직을 처리하다가 에러가 발생하였다면, 변경된 데이터를 로직을 수행하기 이전 상태로 콜백
@@ -34,6 +39,8 @@ public class MemberService implements UserDetailsService {  // @RequiredArgsCons
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {      // UserDetailsService 인터페이스의 loadUserByUsername() 메소드를 오버라이딩. 로그인할 유저의 email을 파라미터로 받음.
         Member member = memberRepository.findByEmail(email);
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
 
         if(member == null) {
             throw new UsernameNotFoundException(email);
