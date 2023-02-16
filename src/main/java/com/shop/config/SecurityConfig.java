@@ -60,11 +60,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
-    }
-
-    @Bean
     public BCryptPasswordEncoder encodePassword() {
         return new BCryptPasswordEncoder();
     }
