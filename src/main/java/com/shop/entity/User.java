@@ -22,7 +22,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String email;
     private String picture;
-    private String role = "ROLE_USER";
+    private String role = "USER";
 
     public User(String name, String email, String picture) {
         this.name = name;

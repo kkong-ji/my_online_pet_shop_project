@@ -52,6 +52,19 @@ public class Member extends BaseEntity{                     // 회원 정보 저
         return member;
     }
 
+    public static Member createAdminMember(MemberFormDto memberFormDto,
+                                      PasswordEncoder passwordEncoder) {
+
+        Member member = new Member();
+        member.setName(memberFormDto.getName());
+        member.setEmail(memberFormDto.getEmail());
+        member.setAddress(memberFormDto.getAddress());
+        String password = passwordEncoder.encode(memberFormDto.getPassword());      // 스프링 시큐리티 설정 클래스에 등록한 BCryptPasswordEncoder Bean을 파라미터로 넘겨서 비밀번호 암호화
+        member.setPassword(password);
+        member.setRole(Role.ADMIN);
+        return member;
+    }
+
 
     public Member updateModifiedDate() {
         this.onPreUpdate();
