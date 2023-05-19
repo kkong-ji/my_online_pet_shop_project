@@ -3,14 +3,14 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="header">
-    <nav class="navbar navbar-expand-sm navbar-light py-md-0" style="background-color: #FFEEDE;">
+    <nav class="navbar navbar-expand-sm navbar-light py-md-0" style="background-color: #343A40;">
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/">
-            <img src="https://i.pinimg.com/564x/ae/d2/00/aed200c917d42bc252bbbcbb772118e1.jpg" alt="" width="80" height="60" style="margin-left: -5px">
+            <img src="https://cdn-icons-png.flaticon.com/128/9909/9909238.png" alt="" width="80" height="60" style="margin-left: -5px">
                 <b style="font-size: 28px; color:#957745; text-shadow: -1px 0 #0D0D0D, 0 1px #0D0D0D, 1px 0 #0D0D0D, 0 -1px #0D0D0D; margin-right: -9px">댕</b>
                 <b style="font-size: 28px; color:#E1B771; text-shadow: -1px 0 #0D0D0D, 0 1px #0D0D0D, 1px 0 #0D0D0D, 0 -1px #0D0D0D;">댕</b></a>
                 <b style="font-size: 28px; color:#957745; text-shadow: -1px 0 #0D0D0D, 0 1px #0D0D0D, 1px 0 #0D0D0D, 0 -1px #0D0D0D; margin-right: -1px">월</b>
@@ -26,20 +26,20 @@
                     <a class="nav-link" href="/admin/items">상품 관리</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/cart">장바구니</a>
+                    <a class="nav-link" style="color:white" href="/cart">장바구니</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/orders">구매이력</a>
+                    <a class="nav-link" style="color:white" href="/orders">구매이력</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a href="/oauth2/authorization/google" role="button" class="btn btn-outline-danger bi bi-google" style="margin-left: 15px"> 구글로 로그인</a>
+                    <a href="/oauth2/authorization/google" role="button" class="btn btn-outline-danger bi bi-google" style="margin-left: 15px">구글로 로그인</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" href="/members/login">로그인</a>
+                    <a class="nav-link" style="color:white" href="/members/login">로그인</a>
                 </li>
-                <a sec:authorize="isAuthenticated()" style="font-size: 15px; margin-left: 400px; margin-top:10px;"><span sec:authentication="name"></span>  님</span></a>
+                <a sec:authorize="isAuthenticated()" style="color:white; font-size: 15px; margin-left: 400px; margin-top:10px;"><span sec:authentication="name"></span>  님</span></a>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/members/logout">로그아웃</a>
+                    <a class="nav-link" style="color:orange" href="/members/logout">로그아웃</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
@@ -48,15 +48,6 @@
             </form>
         </div>
     </nav>
-
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">댕댕 월드에 오신 것을 환영합니다!</h1>
-                <p class="lead fw-normal text-white-50 mb-0">♥️ 강아지 용품의 모든 것 ♥️</p>
-            </div>
-        </div>
-    </header>
 </div>
 
 </html>
