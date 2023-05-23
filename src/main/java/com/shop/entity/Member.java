@@ -29,9 +29,13 @@ public class Member extends BaseEntity{                     // 회원 정보 저
 
     private String password;
 
+    private String picture;
+
     private String address;
 
-    private String picture;
+    private String streetaddress;
+
+    private String detailaddress;
 
     @Enumerated(EnumType.STRING)                            // enum의 순서가 바뀌지 않도록 하기위해 enumType을 String으로 지정
     private Role role;
@@ -45,12 +49,16 @@ public class Member extends BaseEntity{                     // 회원 정보 저
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
-        member.setAddress(memberFormDto.getAddress());
+        member.setAddress(memberFormDto.getZipcode());
+        member.setDetailaddress(memberFormDto.getDetailadr());
+        member.setStreetaddress(memberFormDto.getStreetadr());
+
         String password = passwordEncoder.encode(memberFormDto.getPassword());      // 스프링 시큐리티 설정 클래스에 등록한 BCryptPasswordEncoder Bean을 파라미터로 넘겨서 비밀번호 암호화
         member.setPassword(password);
         member.setRole(Role.USER);
         return member;
     }
+
 
     public static Member createAdminMember(MemberFormDto memberFormDto,
                                       PasswordEncoder passwordEncoder) {
@@ -58,7 +66,9 @@ public class Member extends BaseEntity{                     // 회원 정보 저
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
-        member.setAddress(memberFormDto.getAddress());
+        member.setAddress(memberFormDto.getZipcode());
+        member.setDetailaddress(memberFormDto.getDetailadr());
+        member.setStreetaddress(memberFormDto.getStreetadr());
         String password = passwordEncoder.encode(memberFormDto.getPassword());      // 스프링 시큐리티 설정 클래스에 등록한 BCryptPasswordEncoder Bean을 파라미터로 넘겨서 비밀번호 암호화
         member.setPassword(password);
         member.setRole(Role.ADMIN);

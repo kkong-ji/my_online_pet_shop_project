@@ -19,11 +19,11 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item"
                             sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                    <a class="nav-link" href="/admin/item/new">상품 등록</a>
+                    <a class="nav-link" style="color:white" href="/admin/item/new">상품 등록</a>
                 </li>
                 <li class="nav-item"
                             sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                    <a class="nav-link" href="/admin/items">상품 관리</a>
+                    <a class="nav-link" style="color:white" href="/admin/items">상품 관리</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" style="color:white" href="/cart">장바구니</a>
