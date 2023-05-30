@@ -52,7 +52,6 @@ public class Member extends BaseEntity{                     // 회원 정보 저
         member.setAddress(memberFormDto.getZipcode());
         member.setDetailaddress(memberFormDto.getDetailadr());
         member.setStreetaddress(memberFormDto.getStreetadr());
-
         String password = passwordEncoder.encode(memberFormDto.getPassword());      // 스프링 시큐리티 설정 클래스에 등록한 BCryptPasswordEncoder Bean을 파라미터로 넘겨서 비밀번호 암호화
         member.setPassword(password);
         member.setRole(Role.USER);

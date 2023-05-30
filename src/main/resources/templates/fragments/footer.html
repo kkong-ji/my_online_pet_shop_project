@@ -2,6 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="footer" th:fragment="footer">
     <!-- Footer-->
+    <style>
+        # body-wrapper {
+            min-height: 100%;
+            position: relative;
+            padding-bottom: 60px;
+        }
+        footer {
+            position: relative;
+            transform: translatY(-100%);
+        }
+    </style>
+
     <footer class="py-5 bg-dark mt-auto">
         <div id="body-wrapper">
             <div id="body-content">

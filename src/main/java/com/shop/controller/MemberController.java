@@ -138,5 +138,4 @@ public class MemberController {                 // 회원가입을 위한 컨트
         }
         return result;
     }
-
 }
