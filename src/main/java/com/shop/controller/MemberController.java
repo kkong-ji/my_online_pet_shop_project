@@ -4,7 +4,9 @@ import com.shop.config.auth.PrincipalDetails;
 import com.shop.dto.MemberFormDto;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
+import com.shop.service.MailService;
 import com.shop.service.MemberService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,10 +16,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -30,6 +29,7 @@ public class MemberController {                 // 회원가입을 위한 컨트
     @Autowired
     private MemberRepository memberRepository;
 
+    private final MailService mailService;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -87,6 +87,7 @@ public class MemberController {                 // 회원가입을 위한 컨트
     public String loginMember() {
         return "/member/memberLoginForm";
     }
+
 
     @GetMapping(value = "/login/error")
     public String loginError(Model model) {
