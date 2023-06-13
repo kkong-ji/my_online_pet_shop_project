@@ -86,6 +86,12 @@
         </style>
     </header>
 
+    <h6 style="text-align:right; color:red; font-size: 15px; margin-right: 90px;">▼ 찾으시는 상품을 검색해보세요!</h6>
+    <form class="form-inline my-2 my-lg-0" th:action="@{/}" style="float:right" method="get">
+        <input name="searchQuery" class="form-control mr-sm-2" type="search"  placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
     <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center" style="color:#8761F8">
@@ -115,7 +121,8 @@
             </div>
         </th:block>
     </div>
-
+    <br>
+    <br>
     <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
         <ul class="pagination justify-content-center">
 
