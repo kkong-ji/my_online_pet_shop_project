@@ -135,6 +135,9 @@
             height:auto;
             width:50%;
         }
+        .text-right{
+            line-height: 3.0;
+        }
     </style>
 </th:block>
 
@@ -157,15 +160,20 @@
             <hr class="my-4">
 
             <div class="text-right">
-                <div class="h4 text-danger text-left">
+                <div class="h5 text-left">
                     <input type="hidden" th:value="${item.price}" id="price" name="price">
-                    <span th:text="${item.price}"></span>원
+                    <div style="float:left; line-height: 1.5;">가격: </div>
+                        <span th:text="${item.price}" style="line-height: 1.5;"></span>원
+                    <div style="text-align: left; line-height: 1.5;">배송비:2500원</div>
+                    <h6 style="float:left; font-size:14px;">도서산간지역 배송비 5000원/3만원 이상 결제시 무료배송</h6>
+                    <div style="text-align: left; line-height: 1.5;">적립금:2030원</div>
+
                 </div>
                 <div class="input-group w-50">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">수량</span>
+                        <span class="input-group-text">구매 수량</span>
                     </div>
-                    <input type="number" name="count" id="count" class="form-control" value="1" min="1">
+                    <input type="number" name="count" id="count" class="form-control" value="1" min="1" style="width:70px;">
                 </div>
             </div>
             <hr class="my-4">
