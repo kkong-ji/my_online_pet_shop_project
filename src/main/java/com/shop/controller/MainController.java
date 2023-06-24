@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import com.shop.config.auth.PrincipalDetails;
 import com.shop.dto.ItemSearchDto;
 import com.shop.dto.MainItemDto;
 import com.shop.service.ItemService;
@@ -7,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
@@ -27,5 +30,12 @@ public class MainController {
         model.addAttribute("itemSearchDto", itemSearchDto);
         model.addAttribute("maxPage", 5);
         return "main";
+    }
+
+    @GetMapping(value = "/mypage")
+    public String profile(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+
+        model.addAttribute("principal", principalDetails.getMember());
+        return "mypage/myInfo";
     }
 }

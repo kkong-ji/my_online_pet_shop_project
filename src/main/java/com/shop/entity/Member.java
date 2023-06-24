@@ -3,9 +3,11 @@ package com.shop.entity;
 import com.shop.constant.Role;
 import com.shop.dto.MemberFormDto;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import javax.persistence.*;
+import java.util.Collection;
 
 @Builder
 @Entity
@@ -15,7 +17,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member extends BaseEntity{                     // 회원 정보 저장 엔티티
+public class Member extends BaseEntity implements UserDetails {                     // 회원 정보 저장 엔티티
 
     @Id
     @Column(name="member_id")
@@ -60,7 +62,7 @@ public class Member extends BaseEntity{                     // 회원 정보 저
 
 
     public static Member createAdminMember(MemberFormDto memberFormDto,
-                                      PasswordEncoder passwordEncoder) {
+                                           PasswordEncoder passwordEncoder) {
 
         Member member = new Member();
         member.setName(memberFormDto.getName());
@@ -98,4 +100,33 @@ public class Member extends BaseEntity{                     // 회원 정보 저
         this.providerId = providerId;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.name = name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

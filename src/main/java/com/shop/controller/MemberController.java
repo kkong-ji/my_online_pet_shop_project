@@ -15,10 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Map;
 
 @RequestMapping("/members")
@@ -101,10 +103,10 @@ public class MemberController {                 // 회원가입을 위한 컨트
     public String formLoginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        String member = principal.getUsername();
+        String member = principal.getName();
         System.out.println(member);
 
-        String user1 = principalDetails.getUsername();
+        String user1 = principalDetails.getName();
         System.out.println(user1);
 
         return member.toString();
@@ -127,16 +129,11 @@ public class MemberController {                 // 회원가입을 위한 컨트
 
 
     @GetMapping("/loginInfo")
-    @ResponseBody
-    public String loginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        String result = "";
+    public String memberInfo(Principal principal, ModelMap modelMap){
+        String loginId = principal.getName();
+        Member member = memberRepository.findByEmail(loginId);
+        modelMap.addAttribute("member", member);
 
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        if(principal.getName() == null) {
-            result = result + "Form 로그인 : " + principal;
-        }else{
-            result = result + "OAuth2 로그인 : " + principal;
-        }
-        return result;
+        return "mypage/myinfo";
     }
 }

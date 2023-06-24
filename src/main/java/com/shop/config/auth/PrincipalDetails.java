@@ -56,16 +56,11 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         return member.getPassword();
     }
 
+
     @Override
     public String getUsername() {
         return member.getEmail();
     }
-
-    /**
-     * UserDetails 구현
-     * PK값을 반환해준다
-     */
-
 
     /**
      * UserDetails 구현
