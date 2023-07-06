@@ -29,6 +29,8 @@ public class Member extends BaseEntity implements UserDetails {                 
     @Column(unique = true)
     private String email;                                   // 회원은 이메일을 통해 유일하게 구분하므로 unique 속성 지정
 
+    private String originalpassword;
+
     private String password;
 
     private String picture;
@@ -54,12 +56,12 @@ public class Member extends BaseEntity implements UserDetails {                 
         member.setAddress(memberFormDto.getZipcode());
         member.setDetailaddress(memberFormDto.getDetailadr());
         member.setStreetaddress(memberFormDto.getStreetadr());
+        member.setOriginalpassword(memberFormDto.getPassword());
         String password = passwordEncoder.encode(memberFormDto.getPassword());      // 스프링 시큐리티 설정 클래스에 등록한 BCryptPasswordEncoder Bean을 파라미터로 넘겨서 비밀번호 암호화
         member.setPassword(password);
         member.setRole(Role.USER);
         return member;
     }
-
 
     public static Member createAdminMember(MemberFormDto memberFormDto,
                                            PasswordEncoder passwordEncoder) {
@@ -70,12 +72,12 @@ public class Member extends BaseEntity implements UserDetails {                 
         member.setAddress(memberFormDto.getZipcode());
         member.setDetailaddress(memberFormDto.getDetailadr());
         member.setStreetaddress(memberFormDto.getStreetadr());
+        member.setOriginalpassword(memberFormDto.getPassword());
         String password = passwordEncoder.encode(memberFormDto.getPassword());      // 스프링 시큐리티 설정 클래스에 등록한 BCryptPasswordEncoder Bean을 파라미터로 넘겨서 비밀번호 암호화
         member.setPassword(password);
         member.setRole(Role.ADMIN);
         return member;
     }
-
 
     public Member updateModifiedDate() {
         this.onPreUpdate();
@@ -128,5 +130,13 @@ public class Member extends BaseEntity implements UserDetails {                 
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    /**
+     * 회원수정 메소드
+     */
+    public void update(String password, String name) {
+        this.password = password;
+        this.name = name;
     }
 }

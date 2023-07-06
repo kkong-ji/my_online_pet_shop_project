@@ -168,7 +168,7 @@
                 <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호 전송</button>
             </div>
                 <br>
-            <div id="mail_number" name="mail_number">
+            <div class="form-group" id="mail_number" name="mail_number">
                 <input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
                 <span id="mail-check-warn"></span>
                 <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
@@ -177,7 +177,7 @@
             </div>
             <div class="form-group">
                 <label th:for="password" style="margin-top: 10px">비밀번호</label>
-                <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호 입력" style="width:250px;">
+                <input type="password" th:field="*{password}" id="password" class="form-control" placeholder="비밀번호 입력" style="width:250px;">
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
             </div>
             <div class="form-group">

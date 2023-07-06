@@ -38,10 +38,10 @@
                     <a class="nav-link" style="color:white" href="/members/login">로그인</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color:white" href="/members/loginInfo"> 마이페이지 </a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" style="color:white" href="/members/myInfo">마이페이지 </a>
                 </li>
                 <li class="nav-item">
-                    <a sec:authorize="isAuthenticated()" style="color:white; font-size: 15px; margin-right:5px;"><span sec:authentication="name" style="display:inline-block; color:white; height:15px; font-size: 15px; margin-left:650px; padding:8px">
+                    <a sec:authorize="isAuthenticated()" style="color:white; font-size: 15px; margin-right:5px;"><span sec:authentication="name" style="display:inline-block; color:white; height:15px; font-size: 15px; margin-left:500px; padding:8px">
                     </span> 님</span></a>
                     <span sec:authorize="isAuthenticated()" style="color:white; font-size: 15px; margin-right:5px;">
                     </span>

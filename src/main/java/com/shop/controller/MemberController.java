@@ -4,7 +4,6 @@ import com.shop.config.auth.PrincipalDetails;
 import com.shop.dto.MemberFormDto;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
-import com.shop.service.MailService;
 import com.shop.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,20 +17,22 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
 
+import static com.shop.constant.Role.*;
+
 @RequestMapping("/members")
 @Controller
 @RequiredArgsConstructor
-public class MemberController {                 // 회원가입을 위한 컨트롤러
+public class MemberController {
 
     @Autowired
     private MemberRepository memberRepository;
 
-    private final MailService mailService;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -111,8 +112,7 @@ public class MemberController {                 // 회원가입을 위한 컨트
 
         return member.toString();
     }
-
-
+    
     @GetMapping("/oauth/loginInfo")
     @ResponseBody
     public String oauthLoginInfo(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2UserPrincipal){
@@ -127,13 +127,31 @@ public class MemberController {                 // 회원가입을 위한 컨트
         return attributes.toString();     //세션에 담긴 user가져올 수 있음
     }
 
-
-    @GetMapping("/loginInfo")
-    public String memberInfo(Principal principal, ModelMap modelMap){
+    /* 회원정보 조회 */
+    @GetMapping("/myInfo")
+    public String memberInfo(Principal principal, ModelMap modelMap, Member member){
         String loginId = principal.getName();
-        Member member = memberRepository.findByEmail(loginId);
-        modelMap.addAttribute("member", member);
+        Member memberId = memberRepository.findByEmail(loginId);
+        modelMap.addAttribute("member", memberId);
 
-        return "mypage/myinfo";
+        if (memberId.getRole() == USER ) {
+            System.out.println("USER LOGIN");
+            return "mypage/FormMemberMyInfo";
+        }
+        if (memberId.getRole() == ADMIN) {
+            System.out.println("ADMIN LOGIN");
+            return "mypage/FormMemberMyInfo";
+        }
+        if (memberId.getRole() == SOCIAL) {
+            System.out.println("SOCIAL LOGIN");
+            return "mypage/OAuthMemberMyInfo";
+        }
+        return "null";
     }
+
+    @GetMapping("/checkPwd")
+    public String checkPwdView(){
+        return "mypage/check-pwd";
+    }
+
 }

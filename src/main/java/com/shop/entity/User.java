@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 import java.util.List;
 
 @Table(name="user")
@@ -25,6 +23,9 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -43,9 +44,10 @@ public class User extends BaseEntity {
     private Role role;
 
     @Builder(builderClassName = "UserDetailRegister", builderMethodName = "userDetailRegister")
-    public User(String name, String email, String picture, Role role, String address) {
+    public User(String name, String email, String password, String picture, Role role, String address) {
         this.name = name;
         this.email = email;
+        this.password = password;
         this.address = address;
         this.picture = picture;
         this.role = role;
