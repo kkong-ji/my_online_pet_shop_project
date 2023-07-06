@@ -2,6 +2,7 @@ package com.shop.config.auth;
 
 import com.shop.entity.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 @Getter
 @ToString
+@NoArgsConstructor
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private Member member;
@@ -55,11 +57,18 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public String getPassword() {
         return member.getPassword();
     }
-
-
+    
     @Override
     public String getUsername() {
         return member.getEmail();
+    }
+
+    public Long getId() {
+        return member.getId();
+    }
+
+    public void setMember(Member memberEntity) {
+        this.member = member;
     }
 
     /**
@@ -125,4 +134,5 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         String sub = attributes.get("sub").toString();
         return sub;
     }
+
 }
