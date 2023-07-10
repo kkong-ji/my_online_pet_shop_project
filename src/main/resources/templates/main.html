@@ -68,6 +68,16 @@
             letter-spacing: 5px;
             text-align: center;
         }
+        .search-box {
+            border: 2px grey;
+            position: absolute;
+            border-radius: 5px;
+            left: 1100px;
+            height: 100px;
+            background-color: #eeeff1;
+            padding: 20px;
+            margin : 20px auto;
+        }
     </style>
 </th:block>
 
@@ -86,16 +96,18 @@
         </style>
     </header>
 
+    <div class="search-box" style="float:right;">
     <h6 style="text-align:right; color:red; font-size: 15px; margin-right: 90px;">▼ 찾으시는 상품을 검색해보세요!</h6>
     <form class="form-inline my-2 my-lg-0" th:action="@{/}" style="float:right" method="get">
-        <input name="searchQuery" class="form-control mr-sm-2" type="search"  placeholder="Search" aria-label="Search">
+        <input name="searchQuery" class="form-control mr-sm-2" type="search"  placeholder="ex) 강아지 하네스" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+    </div>
 
     <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center" style="color:#8761F8">
-                <h1 class="display-5 fw-bolder">새로 등록된 상품</h1>
+                <h1 class="display-5 fw-bolder" style="margin-top:150px;">새로 등록된 상품</h1>
             </div>
         </div>
     </div>

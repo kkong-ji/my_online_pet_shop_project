@@ -3,20 +3,24 @@
 <div class="footer" th:fragment="footer">
     <!-- Footer-->
     <style>
-        # body-wrapper {
-            min-height: 100%;
-            position: relative;
-            padding-bottom: 60px;
+        .body-wrapper {
+            height: auto;
+            min-height: calc(100vh - 10rem);
+            padding-bottom: 150px;
+        }
+        .footer-container {
+            min-height: 600px;
         }
         footer {
+            height: 150px;
             position: relative;
-            transform: translatY(-100%);
+            transform: translateY(210%);
         }
     </style>
 
     <footer class="py-5 bg-dark mt-auto">
         <div id="body-wrapper">
-            <div id="body-content">
+            <div className="footer-container">
                 <p class="m-0 text-center text-white">Copyright &copy; kkongji 2023</p>
                 <p class="text-center text-white" style="font-size:10px">(본 사이트는 최대 크기 창 화면에 최적화 되어있습니다.)</p>
             </div>

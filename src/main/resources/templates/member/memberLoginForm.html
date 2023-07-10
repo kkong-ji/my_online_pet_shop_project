@@ -22,20 +22,78 @@
         .login-form{
             /* border: 3px solid red; */
             border-radius: 5px;
-            height: 350px;
+            height: 600px;
             width: 400px;
             background-color: #eeeff1;
             padding: 50px;
             margin : 80px auto;
         }
+        .button_container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 68%;
+        }
         .button {
-            font-size : 14px;
-            color : #fff;
-            padding : 10px;
-            border-radius: 5px;
-            background-color: #1bbc9b;
-            border : none;
-            width : 100%;
+          border: none;
+          display: block;
+          text-align: center;
+          cursor: pointer;
+          text-transform: uppercase;
+          outline: none;
+          overflow: hidden;
+          position: relative;
+          color: #fff;
+          font-weight: 700;
+          font-size: 15px;
+          background-color: #222;
+          padding: 17px 60px;
+          margin: 0 auto;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+        }
+        .button span {
+          position: relative;
+          z-index: 1;
+        }
+        .button:after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 490%;
+          width: 140%;
+          background: #78c7d2;
+          -webkit-transition: all .5s ease-in-out;
+          transition: all .5s ease-in-out;
+          -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+          transform: translateX(-98%) translateY(-25%) rotate(45deg);
+        }
+
+        .button:hover:after {
+          -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+          transform: translateX(-9%) translateY(-25%) rotate(45deg);
+        }
+
+        .span {
+             margin-top: 70px;
+        }
+
+        .forget {
+            position: absolute;
+            left: 50%;
+            top: 107%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .link {
+          font-size: 20px;
+          margin-top: 30px;
+        }
+
+        .link a {
+          color: #000;
+          font-size: 25px;
         }
 </style>
 </th:block>
@@ -55,12 +113,18 @@
                 <input type="password" name="password" id="password" class="form-control" placeholder="비밀번호 입력" style="width:250px;">
             </div>
             <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
-            <button type="btn btn-primary" style="margin-top:20px">로그인</button>
-            <button type="button" onClick="location.href='/members/new'">회원가입</button>
-            <button type="button" onClick="location.href='/members/newAdmin'">관리자 회원가입</button>
+        <div class="button_container">
+            <button type="submit" class="button" style="margin-top:20px">&nbsp;&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            <br>
+            <button type="button" class="button" onClick="location.href='/members/new'">&nbsp;&nbsp;&nbsp;&nbsp;회원가입&nbsp;&nbsp;&nbsp;</button>
+            <br>
+            <button type="button" class="button" onClick="location.href='/members/newAdmin'">관리자 회원가입</button>
+            <br>
+        </div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         </div>
     </form>
+        <a href="" class="forget" style="color:red; text-align:center">Oops! 비밀번호를 잊어버리셨나요?</a>
     </body>
 </div>
 
