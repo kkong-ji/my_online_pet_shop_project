@@ -1,8 +1,11 @@
 package com.shop.service;
 
+import com.shop.dto.MailDto;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

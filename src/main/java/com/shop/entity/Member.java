@@ -2,6 +2,7 @@ package com.shop.entity;
 
 import com.shop.constant.Role;
 import com.shop.dto.MemberFormDto;
+import com.shop.service.MailService;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -135,8 +136,7 @@ public class Member extends BaseEntity implements UserDetails {                 
     /**
      * 회원수정 메소드
      */
-    public void update(String password, String name) {
+    public void updatePassword(String password) {
         this.password = password;
-        this.name = name;
-    }
+      }
 }

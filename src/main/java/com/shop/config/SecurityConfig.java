@@ -57,7 +57,7 @@ public class SecurityConfig {
                 .mvcMatchers("/admin/**").hasRole("ADMIN")      // /admin으로 시작하는 경로는 해당 계정이 ADMIN Role일 경우에만 접근 가능하도록 설정
                 .anyRequest().authenticated()           // 위에서 설정해준 경로를 제외한 나머지 경로들은 모두 인증을 요구하도록 설정
                 .and()
-                .csrf().ignoringAntMatchers("/mail/**")
+                .csrf().ignoringAntMatchers("/mail/**").ignoringAntMatchers("/members/findId")
         ;
 
         http.exceptionHandling()

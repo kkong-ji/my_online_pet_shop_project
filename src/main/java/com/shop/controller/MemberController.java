@@ -1,9 +1,11 @@
 package com.shop.controller;
 
 import com.shop.config.auth.PrincipalDetails;
+import com.shop.dto.MailDto;
 import com.shop.dto.MemberFormDto;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
+import com.shop.service.MailService;
 import com.shop.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -13,11 +15,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -33,6 +35,7 @@ public class MemberController {
     @Autowired
     private MemberRepository memberRepository;
 
+    private final MailService mailService;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -98,6 +101,35 @@ public class MemberController {
         return "/member/memberLoginForm";
     }
 
+    // 회원 아이디 찾기
+    @RequestMapping(value = "/findId", method = RequestMethod.POST)
+    @ResponseBody
+    public String findId(@RequestParam("memberEmail") String memberEmail) {
+        String email = String.valueOf(memberRepository.findByEmail(memberEmail));
+        System.out.println("회원 이메일 = " + email);
+        if(email == null) {
+            return null;
+        } else {
+            return email;
+        }
+    }
+
+    // 회원 비밀번호 찾기
+    @GetMapping(value = "/findMember")
+    public String findMember(Model model) {
+        return "/member/findMemberForm";
+    }
+
+    // 비밀번호 찾기 시, 임시 비밀번호 담긴 이메일 보내기
+    @Transactional
+    @PostMapping("/sendEmail")
+    public String sendEmail(@RequestParam("memberEmail") String memberEmail){
+        MailDto dto = mailService.createMailAndChangePassword(memberEmail);
+        mailService.mailSend(dto);
+
+        return "/member/memberLoginForm";
+    }
+
     // !!!! OAuth로 로그인 시 이 방식대로 하면 CastException 발생함
     @GetMapping("/form/loginInfo")
     @ResponseBody
@@ -149,9 +181,6 @@ public class MemberController {
         return "null";
     }
 
-    @GetMapping("/checkPwd")
-    public String checkPwdView(){
-        return "mypage/check-pwd";
-    }
+
 
 }
