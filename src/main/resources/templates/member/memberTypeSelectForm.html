@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout2}">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        .error {
+            color: #bd2130;
+        }
+        .title {
+            top: 50%;
+            bottom: 50%
+            left: 50%;
+            text-align:center;
+        }
+        body {
+            margin: 0
+        }
+        .login-form{
+            /* border: 3px solid red; */
+            border-radius: 5px;
+            height: 400px;
+            width: 800px;
+            background-color: #eeeff1;
+            padding: 50px;
+            margin : 80px auto;
+        }
+        .button_container {
+            width: 100%;
+            top: 80%;
+        }
+        .select-btn {
+            text-align: center;
+            padding: 10px 10px;
+            justify-content: space-around;
+        }
+        .button {
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            align-items:center;
+            justify-content:center;
+            outline: none;
+            width: 180px;
+            height: 165px;
+            border-radius: 10px;
+            font-size: 17px;
+            background-color: #E5E5E4;
+            margin: 40px;
+            box-shadow: 3px 3px 3px rgb(109, 109, 109), -3px -3px 3px rgb(237, 237, 237);
+            transition: 0.3s;
+        }
+        .button:hover {
+            box-shadow: -3px -3px 3px rgb(172, 172, 172), 3px 3px 3px rgb(237, 237, 237);
+            transition: 0.3s;
+        }
+        .button + button {
+            margin-left: 100px;
+        }
+        .span {
+             margin-top: 70px;
+        }
+
+
+</style>
+</th:block>
+
+<div id="container" layout:fragment="content">
+    <body>
+    <form role="form">
+        <br></br>
+        <h1 class="title">회원 선택</h1>
+        <div class="login-form">
+            <div class="button_container">
+                <div class="select-btn">
+                    <button type="button" class="button" onClick="location.href='/members/new'" style=" display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/128/2456/2456910.png" alt="일반 회원 그림"><p>일반 회원</p></button>
+                    <button type="button" class="button" onClick="location.href='/members/newAdmin'" style=" display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/128/3995/3995775.png" alt="관리자 회원 그림"><p>관리자 회원</p></button>
+                <br>
+                </div>
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </div>
+    </form>
+    </body>
+</div>
+
+</html>
