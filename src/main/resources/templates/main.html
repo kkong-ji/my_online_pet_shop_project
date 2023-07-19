@@ -3,20 +3,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
+<head>
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
         .carousel-inner > .item {
             height: 350px;
         }
-        .margin{
-            margin-bottom:30px;
-        }
-        .banner{
-            height: 300px;
-            position: absolute; top:0; left: 0;
+        html, body {
+            overflow-x:hidden;
+            margin: 0px;
+            padding: 0px;
             width: 100%;
             height: 100%;
+        }
+        .margin{
+            margin-bottom: 30px;
         }
         .card-text{
             text-overflow: ellipsis;
@@ -29,48 +32,129 @@
         .center{
             text-align:center;
         }
-        .image-box {
-            width:100%;
-            overflow:hidden;
+        .image-wrap {
+            width: 100%;
+            overflow: hidden;
             margin:0 auto;
+            text-align: center;
         }
         .image-thumbnail {
-            background-image: url('https://png.pngtree.com/background/20210710/original/pngtree-pet-white-hand-painted-pet-shop-puppy-poster-banner-picture-image_1039290.jpg');
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
+            background-image: url('https://img.freepik.com/premium-photo/happy-puppy-dog-smiling-on-isolated-purple-background_77749-593.jpg?size=626&ext=jpg&ga=GA1.1.1675972772.1684481624&semt=sph');
+            background-size: cover;
+            filter: brightness(20%);
+            display: block;
+            background-position: top;
             text-align: center;
-            weight: 600px;
-	        height : 500px;
-	        margin: 0px;
-            display: flex;
-            object-fit:cover;
+            width: 100%;
+            padding: 0;
+	        height: 90vh;
+	        margin-top: 0px;
         }
-        .image-text {
-            position: absolute;
+        .text {
+            font-family: 'Nanum Pen Script', cursive;
+            vertical-align: middle;
+            display: table-cell;
+            white-space: nowrap;
+            position: sticky;
+            transform: translate(-50%, -200%);
             top: 50%;
             left: 50%;
-            transform: translate( -50%, -50% );
-            color: black;
-        }
-        .image-text h1 {
-            font-family: 'Jua', sans-serif;
-            font-size: 6em;
+            color: white;
             text-align: center;
-            color: #F1C164;
-            text-shadow: 5px 5px #2D63A7;
-            margin: 0;
         }
-        .image-text h4 {
-            font-family: 'Jua', sans-serif;
-            font-size: 1em;
-            color: #f1f1f1;
-            letter-spacing: 5px;
-            text-align: center;
+        @keyframes scale {
+          100% {
+            transform: scale(1);
+          }
+        }
+        .text span {
+          display: inline-block;
+          text-align: left;
+          vertical-align: middle;
+          opacity: 0;
+          filter: blur(4px);
+        }
+        span:nth-child(1) {
+          animation: fade-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(2) {
+          animation: fade-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(3) {
+          animation: fade-in 0.8s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(4) {
+          animation: fade-in 0.8s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(5) {
+          animation: fade-in 0.8s 0.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(6) {
+          animation: fade-in 0.8s 0.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(7) {
+          animation: fade-in 0.8s 0.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(8) {
+          animation: fade-in 0.8s 0.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(9) {
+          animation: fade-in 0.8s 0.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(10) {
+          animation: fade-in 0.8s 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(11) {
+          animation: fade-in 0.8s 1.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(12) {
+          animation: fade-in 0.8s 1.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(13) {
+          animation: fade-in 0.8s 1.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(14) {
+          animation: fade-in 0.8s 1.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(15) {
+          animation: fade-in 0.8s 1.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(16) {
+          animation: fade-in 0.8s 1.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(17) {
+          animation: fade-in 0.8s 1.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        span:nth-child(18) {
+          animation: fade-in 0.8s 1.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+        }
+
+        @keyframes fade-in {
+          100% {
+            opacity: 1;
+            filter: blur(0);
+          }
         }
         .search-box {
             border: 2px grey;
-            position: absolute;
+            position: sticky;
             border-radius: 5px;
             left: 1100px;
             height: 100px;
@@ -80,25 +164,40 @@
         }
     </style>
 </th:block>
+</head>
 
 <div layout:fragment="content">
+  <body style="overflow-x: hidden">
     <header class="py-5">
-        <div class="image-box">
+        <div class="image-wrap">
             <div class="image-thumbnail">
             </div>
-            <div class="image-text" style="text-align:center;">
-                <h1 class="display-4 fw-bolder" style="text-align:center; font-size: calc((120vw / 1240) * 72);">Welcome! <br> 댕댕월드 </h1>
-                <p class="lead fw-normal text-black-50 mb-0" style="text-align:center; font-size: calc((25vw / 1240) * 72);">♥️ 강아지 용품의 모든 것 ♥️</p>
-            </div>
+             <div class="text">
+                    <span style="font-size: 70px">Welcome to</span>
+                    <span style="font-size: 70px">"Daeng Daeng</span>
+                    <span style="font-size: 70px"> World!"</span>
+                    <br>
+                    <span style="font-size: 25px">우리 곁에는 항상</span>
+                    <span style="font-size: 25px">장난끼 많지만</span>
+                    <span style="font-size: 25px">그 모습마저도</span>
+                    <span style="font-size: 25px">사랑스러운</span>
+                    <span style="font-size: 25px">친구들이 있죠.</span>
+                    <br>
+                    <span style="font-size: 25px">댕댕월드는</span>
+                    <span style="font-size: 25px">사람과 강아지 모두가</span>
+                    <span style="font-size: 25px">만족할만한</span>
+                    <span style="font-size: 25px">최상의 상품을</span>
+                    <span style="font-size: 25px">판매합니다.</span>
+                    <br>
+                    <span style="font-size: 25px">사랑하는</span>
+                    <span style="font-size: 25px">강아지와 좋은 추억을 만들어보세요.</span>
+             </div>
         </div>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-        </style>
     </header>
 
-    <div class="search-box" style="float:right;">
+    <div class="search-box" style="float:left;">
     <h6 style="text-align:right; color:red; font-size: 15px; margin-right: 90px;">▼ 찾으시는 상품을 검색해보세요!</h6>
-    <form class="form-inline my-2 my-lg-0" th:action="@{/}" style="float:right" method="get">
+    <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
         <input name="searchQuery" class="form-control mr-sm-2" type="search"  placeholder="ex) 강아지 하네스" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -156,5 +255,5 @@
 
         </ul>
     </div>
-
+  </body>
 </div>

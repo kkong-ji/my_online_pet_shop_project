@@ -71,7 +71,7 @@
     <body>
     <form role="form">
         <br></br>
-        <h1 class="title">회원 선택</h1>
+        <h1 class="title" style="margin-top:40px">회원 선택</h1>
         <div class="login-form">
             <div class="button_container">
                 <div class="select-btn">
@@ -80,7 +80,7 @@
                 <br>
                 </div>
             </div>
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         </div>
     </form>
     </body>

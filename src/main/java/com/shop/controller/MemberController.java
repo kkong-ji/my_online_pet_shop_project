@@ -45,6 +45,11 @@ public class MemberController {
         return "member/memberForm";
     }
 
+    @GetMapping(value = "/select")
+    public String memberSelect(Model model) {
+        return "member/memberTypeSelectForm";
+    }
+
     @PostMapping(value = "/new")
     public String newMember(@Valid MemberFormDto memberFormDto,         // 검증하려는 객체의 앞에 @Valid 어노테이션을 선언하고, 파라미터로 bindingResult 객체 추가
                             BindingResult bindingResult, Model model) { // 검사 후 결과는 bindingResult에 담아줌.
