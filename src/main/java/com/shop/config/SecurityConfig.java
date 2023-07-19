@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -63,6 +64,9 @@ public class SecurityConfig {
         http.exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())         // 인증되지 않은 사용자가 리소스에 접근했을 때 수행되는 핸들러 등록
         ;
+
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 
         return http.build();
     }
