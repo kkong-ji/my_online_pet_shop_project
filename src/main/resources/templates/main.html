@@ -3,11 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
-<head>
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+        @import url(https://fonts.googleapis.com/css?family=Raleway);
+        @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap");
+
         .carousel-inner > .item {
             height: 350px;
         }
@@ -21,10 +24,78 @@
         .margin{
             margin-bottom: 30px;
         }
-        .card-text{
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
+        h1 {
+          font-family: "Oswald", sans-serif;
+          font-weight: 300;
+          color: #252923;
+          width: 100%;
+          padding: 50px 0;
+          background: #fff;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-weight: 100;
+          margin-bottom: 32px;
+        }
+        .cards {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 20px;
+          width: 80%;
+          margin: 0 auto;
+        }
+        .card {
+          background: #fff;
+          border: 2px solid #928c8c;
+          border-radius: 8px;
+          transition: all 300ms ease;
+        }
+        .card:hover {
+          transform: scale(1.008) translateY(-5px);
+          box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+        }
+        .card__img {
+          height: 150px;
+          background-size: cover;
+          background-position: 50% 70%;
+        }
+        .card__body {
+          padding: 20px 32px 0;
+        }
+        .card__title {
+          color: #252923;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
+        .card__footer {
+          padding: 10px 32px 20px;
+          margin-top: 30px;
+          display: flex;
+          justify-content: space-between;
+        }
+        .card__buy {
+          background: #424c3d;
+          color: #fff;
+          padding: 5px 10px;
+          border-radius: 6px;
+          font-weight: 500;
+          text-transform: uppercase;
+          font-size: 14px;
+          transition: all 150ms ease;
+          display: flex;
+          align-items: center;
+        }
+        .card__buy i {
+          font-size: 12px;
+          margin-left: 8px;
+          transition: all 200ms ease;
+        }
+        .card__buy:hover {
+          cursor: pointer;
+          background: #363e32;
+        }
+        .card__buy:hover i {
+          transform: translateX(2px);
         }
         a:hover{
             text-decoration:none;
@@ -157,14 +228,333 @@
             position: sticky;
             border-radius: 5px;
             left: 1100px;
-            height: 100px;
-            background-color: #eeeff1;
+            height: 150px;
             padding: 20px;
             margin : 20px auto;
         }
+
+        .menu {
+          display: inline-block;
+          -webkit-box-shadow: 0 0 70px #fff;
+          -moz-box-shadow: 0 0 70px #fff;
+          box-shadow: 0 0 70px #fff;
+          margin-top: -500px;
+          margin-left: 90px;
+          text-align: center;
+        }
+
+        /* a little "umph" */
+        .decor {
+          background: #6EAF8D;
+          background: -webkit-linear-gradient(left, #CDEBDB 50%, #6EAF8D 50%);
+          background: -moz-linear-gradient(left, #CDEBDB 50%, #6EAF8D 50%);
+          background: -o-linear-gradient(left, #CDEBDB 50%, #6EAF8D 50%);
+          background: linear-gradient(left, white 50%, #6EAF8D 50%);
+          background-size: 50px 25%;;
+          padding: 2px;
+          display: block;
+        }
+
+        ul {
+          list-style: none;
+          position: relative;
+          text-align: left;
+        }
+
+        li {
+          float: left;
+        }
+
+        /* clear'n floats */
+        ul:after {
+          clear: both;
+        }
+
+        ul:before,
+        ul:after {
+            content: " ";
+            display: table;
+        }
+
+        .mini-nav {
+          position: relative;
+          background: #BBDEFB;
+          background-image: -webkit-linear-gradient(bottom, #2B2B2B 7%, #333333 100%);
+          background-image: -moz-linear-gradient(bottom, #2B2B2B 7%, #333333 100%);
+          background-image: -o-linear-gradient(bottom, #2B2B2B 7%, #333333 100%);
+          background-image: linear-gradient(bottom, #2B2B2B 7%, #333333 100%);
+          text-align: center;
+          letter-spacing: 1px;
+          text-shadow: 1px 1px 1px #0E0E0E;
+          -webkit-box-shadow: 2px 2px 3px #888;
+          -moz-box-shadow: 2px 2px 3px #888;
+          box-shadow: 2px 2px 3px #888;
+          border-bottom-right-radius: 8px;
+          border-bottom-left-radius: 8px;
+        }
+
+        /* prime */
+        ul.primary li a {
+          display: block;
+          padding: 20px 30px;
+          border-right: 1px solid #3D3D3D;
+        }
+
+        ul.primary li:last-child a {
+          border-right: none;
+        }
+
+        ul.primary li a:hover {
+          color: #000000;
+        }
+
+        /* subs */
+        ul.sub {
+          position: absolute;
+          z-index: 200;
+          box-shadow: 2px 2px 0 #BEBEBE;
+          width: 35%;
+          display:none;
+        }
+
+        ul.sub li {
+          float: none;
+          margin: 0;
+        }
+
+        ul.sub li a {
+          border-bottom: 1px dotted #ccc;
+          border-right: none;
+          color: #000;
+          padding: 15px 30px;
+        }
+
+        ul.sub li:last-child a {
+          border-bottom: none;
+        }
+
+        ul.sub li a:hover {
+          color: #000;
+          background: #eeeeee;
+        }
+
+        /* sub display*/
+        ul.primary li:hover ul {
+          display: block;
+          color: #000000;
+          background: #fff;
+        }
+
+        /* keeps the tab background white */
+        ul.primary li:hover a {
+          background: #fff;
+          color: #666;
+          color: #000000;
+          text-shadow: none;
+        }
+
+        ul.primary li:hover > a{
+          color: #000;
+        }
+
+        @media only screen and (max-width: 600px) {
+          .decor {
+            padding: 3px;
+          }
+
+          .menu {
+            width: 120%;
+            margin-top: 0px;
+          }
+
+           li {
+            float: none;
+            color: #000000;
+          }
+
+          ul.primary li:hover a {
+            background: none;
+            color: #8B8B8B;
+            text-shadow: 1px 1px #000;
+          }
+
+          ul.primary li:hover ul {
+            display: block;
+            background: #272727;
+            color: #fff;
+          }
+
+          ul.sub {
+            display: block;
+            position: static;
+            box-shadow: none;
+            width: 100%;
+          }
+
+          ul.sub li a {
+            background: #272727;
+            border: none;
+            color: #8B8B8B;
+          }
+
+          ul.sub li a:hover {
+            color: #ccc;
+            background: none;
+          }
+        }
+
+        .hero-students {
+          align-items: center;
+          display: flex;
+          flex-basis: content;
+          flex-direction: column;
+          padding: 2em;
+        }
+
+        .hero-students > div {
+          font-family: 'Bagel Fat One', cursive;
+          max-width: 640px;
+          text-align: center;
+        }
+
+        a {
+          color: #000;
+        }
+
+        h1 {
+          display: inline-block;
+          font-family: 'Bagel Fat One', cursive;
+          font-size: 3em;
+          letter-spacing: -0.05em;
+          line-height:  .75;
+          margin: .5em 0;
+          text-align: center;
+          text-transform: uppercase;
+          transform: rotate(-7deg);
+        }
+
+        h1 > span {
+          background-color: black;
+          box-sizing: border-box;
+          color: black;
+          display: inline-block;
+          padding: 0.35em 2em;
+          margin: -0.1em auto;
+          width: auto;
+        }
+
+        h1 > span:before {
+          animation-name: title;
+          animation-duration: 3s;
+          animation-iteration-count:infinite;
+          animation-timing-function: ease;
+          box-sizing: border-box;
+          content: attr(data-text);
+          display: inline;
+          color: #feef70;
+          display: block;
+          position: absolute;
+          z-index: 1;
+        }
+
+        h1 > span:last-child:before {
+          animation-delay: 0.25s;
+        }
+
+        h1 {
+          display: inline-block;
+          font-family: 'Bagel Fat One', cursive;
+          font-size: 4em;
+          letter-spacing: -0.09em;
+          line-height:  65px;
+          margin: .3em 0;
+          text-align: center;
+          text-transform: uppercase;
+          transform: rotate(-7deg);
+        }
+
+        h1 > span {
+          background-color: black;
+          box-sizing: border-box;
+          color: black;
+          display: inline-block;
+          padding: 0.2em 1em;
+          margin: 1 auto;
+          width: auto;
+        }
+
+        @keyframes title {
+          0% {
+            opacity: 0;
+            transform: translateY(-.2em);
+            -webkit-clip-path: polygon(
+              0 70%,
+              100% 0,
+              100% 100%,
+              0 100%
+            );
+            clip-path: polygon(
+              0 70%,
+              100% 0,
+              100% 100%,
+              0 100%
+            );
+          }
+
+          20% {
+            opacity: 1;
+            transform: translateY(0);
+            -webkit-clip-path: polygon(
+              0 0,
+              100% 0,
+              100% 100%,
+              0 100%
+            );
+            clip-path: polygon(
+              0 0,
+              100% 0,
+              100% 100%,
+              0 100%
+            );
+          }
+
+          80% {
+            opacity: 1;
+            transform: translateY(0);
+            -webkit-clip-path: polygon(
+              0 0,
+              100% 0,
+              100% 100%,
+              0 100%
+            );
+            clip-path: polygon(
+              0 0,
+              100% 0,
+              100% 100%,
+              0 100%
+            );
+          }
+
+          100% {
+            opacity: 0;
+            transform: translateY(.1em);
+            -webkit-clip-path: polygon(
+              0 70%,
+              100% 0,
+              100% 30%,
+              0 100%
+            );
+            clip-path: polygon(
+              0 70%,
+              100% 0,
+              100% 30%,
+              0 100%
+            );
+          }
+        }
+
     </style>
 </th:block>
-</head>
 
 <div layout:fragment="content">
   <body style="overflow-x: hidden">
@@ -195,18 +585,78 @@
         </div>
     </header>
 
+    <div class="hero-students">
+        <div>
+            <h1>
+                <span data-text="댕댕">댕댕</span><br>
+                <span data-text="월드">월드</span>
+            </h1>
+        </div>
+    </div>
+
+    <div class="menu" style="position:relative;">
+        <br>
+        <span class="decor"></span>
+        <nav class="mini-nav">
+            <ul class="primary">
+                <li>
+                    <a href="" style="color:white">강아지 용품</a>
+                    <ul class="sub">
+                        <li><a href="">목줄</a></li>
+                        <li><a href="">의류</a></li>
+                        <li><a href="">Labrador</a></li>
+                        <li><a href="">Mutt</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" style="color:white">사료</a>
+                    <ul class="sub">
+                        <li><a href="">Tabby</a></li>
+                        <li><a href="">Black Cat</a></li>
+                        <li><a href="">Wrinkly Cat</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" style="color:white">장난감</a>
+                    <ul class="sub">
+                        <li><a href="">Humming Bird</a></li>
+                        <li><a href="">Hawk</a></li>
+                        <li><a href="">Crow</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" style="color:white">Horse</a>
+                    <ul class="sub">
+                        <li><a href="">Brown Horse</a></li>
+                        <li><a href="">Race Horse</a></li>
+                        <li><a href="">Tall Horse</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" style="color:white">Burger</a>
+                    <ul class="sub">
+                        <li><a href="">Cheesy</a></li>
+                        <li><a href="">More Ketchup</a></li>
+                        <li><a href="">Some Mustard</a></li>
+                        <li><a href="">Extra Butter</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
     <div class="search-box" style="float:left;">
-    <h6 style="text-align:right; color:red; font-size: 15px; margin-right: 90px;">▼ 찾으시는 상품을 검색해보세요!</h6>
-    <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
-        <input name="searchQuery" class="form-control mr-sm-2" type="search"  placeholder="ex) 강아지 하네스" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <h6 style="text-align:right; color:red; font-size: 15px; margin-right: 90px; margin-top: 440px; margin-bottom: 20px;">▼ 찾으시는 상품을 검색해보세요!</h6>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
+            <input name="searchQuery" class="form-control mr-sm-2" type="search"  placeholder="ex) 강아지 하네스" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     </div>
 
     <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center" style="color:#8761F8">
-                <h1 class="display-5 fw-bolder" style="margin-top:150px;">새로 등록된 상품</h1>
+                <h1 class="display-5 fw-bolder" style="margin-top:120px; margin-bottom: 20px;">새로 등록된 상품</h1>
             </div>
         </div>
     </div>
@@ -216,22 +666,23 @@
         <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
     </div>
 
-    <div class="row">
+    <div class="cards" style="margin-top:120px;">
         <th:block th:each="item, status: ${items.getContent()}">
-            <div class="col-md-4 margin">
-                <div class="card">
-                    <a th:href="'/item/' +${item.id}" class="text-dark">
-                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
-                        <div class="card-body">
-                            <h4 class="card-title">[[${item.itemNm}]]</h4>
-                            <p class="card-text">[[${item.itemDetail}]]</p>
-                            <h3 class="card-title text-danger">[[${item.price}]]원</h3>
-                        </div>
-                    </a>
-                </div>
+        <div class="card">
+            <a th:href="'/item/' +${item.id}" class="text-dark">
+                <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
+            <div class="card__body">
+                <h4 class="card-title">[[${item.itemNm}]]</h4>
+                <p class="card-text">[[${item.itemDetail}]]</p>
             </div>
+            <div class="card__footer">
+                <h3 class="card-title text-danger">[[${item.price}]]원</h3>
+            </div>
+            </a>
+        </div>
         </th:block>
     </div>
+
     <br>
     <br>
     <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
@@ -252,8 +703,10 @@
                     <span aria-hidden='true'>Next</span>
                 </a>
             </li>
-
         </ul>
     </div>
   </body>
+  </div>
 </div>
+
+</html>
