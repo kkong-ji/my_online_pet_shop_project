@@ -3,6 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Bentham|Playfair+Display|Raleway:400,500|Suranna|Trocchi" rel="stylesheet">
+</head>
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
@@ -10,10 +13,8 @@
         @import url(https://fonts.googleapis.com/css?family=Raleway);
         @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap');
         @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap');
 
-        .carousel-inner > .item {
-            height: 350px;
-        }
         html, body {
             overflow-x:hidden;
             margin: 0px;
@@ -103,6 +104,127 @@
         .center{
             text-align:center;
         }
+
+        .wrapper {
+          font-family: 'IBM Plex Sans KR', sans-serif;
+          height: 420px;
+          width: 654px;
+          margin: 100px auto;
+          text-align: justify;
+          border-radius: 7px 7px 7px 7px;
+          /* VIA CSS MATIC https://goo.gl/cIbnS */
+          -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+          -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-img {
+          float: left;
+          height: 420px;
+          width: 327px;
+        }
+
+        .product-img img {
+          border-radius: 7px 0 0 7px;
+        }
+
+        .product-info {
+          text-align: center;
+	      display: table-cell;
+	      vertical-align: middle;
+          height: 420px;
+          width: 327px;
+          border-radius: 0 7px 10px 7px;
+          background-color: #ffffff;
+        }
+
+        .product-text {
+          float: left;
+	      width: 50%;
+	      text-align: center;
+          height: 300px;
+          width: 327px;
+        }
+
+        .product-title {
+          margin: 5 0 0 38px;
+          padding-top: 40px;
+          font-size: 34px;
+          color: #474747;
+        }
+
+        .product-text h1,
+        .product-price-btn p {
+          font-family: 'Bentham', serif;
+        }
+
+        .product-category {
+          margin: 0 0 0px 5px;
+          font-size: 13px;
+          font-family: 'IBM Plex Sans KR', sans-serif;
+          font-weight: 400;
+          text-transform: uppercase;
+          color: #d2d2d2;
+          letter-spacing: 0.2em;
+        }
+
+        .product-text p {
+          height: 200px;
+          margin:50px 25px;
+          text-align: left;
+          font-family: 'IBM Plex Sans KR', sans-serif;
+          color: #8d8d8d;
+          line-height: 1.7em;
+          white-space: normal;
+          font-size: 13px;
+          font-weight: lighter;
+          overflow: hidden;
+        }
+
+        .product-price-btn {
+          height: 50px;
+          width: 250px;
+          position: relative;
+        }
+
+        .product-price-btn p {
+          display: inline-block;
+          position: sticky;
+          top: 5px;
+          height: 50px;
+          transform: translate(-50%, 55%);
+          font-family: 'Trocchi', serif;
+          margin: 0 0 0 38px;
+          font-size: 23px;
+          font-weight: lighter;
+          color: #474747;
+        }
+
+        .product-price-btn button {
+          float: right;
+          display: inline-block;
+          height: 50px;
+          width: 95px;
+          margin: 0 40px 0 16px;
+          box-sizing: border-box;
+          border: transparent;
+          border-radius: 60px;
+          font-family: 'Raleway', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          text-transform: uppercase;
+          transform: translate(80%, -50%);
+          letter-spacing: 0.2em;
+          color: #ffffff;
+          background-color: #9cebd5;
+          cursor: pointer;
+          outline: none;
+        }
+
+        .product-price-btn button:hover {
+          background-color: #79b0a1;
+        }
+
         .image-wrap {
             width: 100%;
             overflow: hidden;
@@ -227,18 +349,15 @@
             border: 2px grey;
             position: sticky;
             border-radius: 5px;
-            left: 1100px;
-            height: 150px;
+            left: 600px;
+            height: -20px;
             padding: 20px;
-            margin : 20px auto;
         }
-
         .menu {
           display: inline-block;
           -webkit-box-shadow: 0 0 70px #fff;
           -moz-box-shadow: 0 0 70px #fff;
           box-shadow: 0 0 70px #fff;
-          margin-top: -500px;
           margin-left: 90px;
           text-align: center;
         }
@@ -363,7 +482,7 @@
           }
 
           .menu {
-            width: 120%;
+            width: 122%;
             margin-top: 0px;
           }
 
@@ -403,15 +522,52 @@
           }
         }
 
-        .hero-students {
-          align-items: center;
-          display: flex;
-          flex-basis: content;
-          flex-direction: column;
-          padding: 2em;
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:900");
+
+        h2 {
+            font: 900 80px/.75 'Source Sans Pro', Arial, sans-serif; text-transform: uppercase; color: #bfbd9c; text-align: center; letter-spacing: -6px;
+            text-shadow:
+                     1px  1px 1px #66644d,
+					 2px  2px 1px #66644d,
+					 3px  3px 1px #66644d,
+					 4px  4px 1px #66644d,
+					 5px  5px 1px #66644d,
+					 6px  6px 1px #66644d,
+					 7px  7px 1px #66644d,
+					 8px  8px 1px #66644d,
+					 9px  9px 1px #66644d,
+					10px 10px 1px #66644d,
+					11px 11px 1px #66644d,
+					12px 12px 1px #66644d,
+					13px 13px 1px #66644d,
+					14px 14px 1px #66644d,
+					15px 15px 1px #66644d,
+					16px 16px 1px #66644d,
+					17px 17px 1px #66644d,
+					18px 18px 1px #66644d,
+					19px 19px 1px #66644d,
+					20px 20px 1px #66644d,
+					21px 21px 1px #66644d,
+					22px 22px 1px #66644d,
+					23px 23px 1px #66644d,
+					24px 24px 1px #66644d,
+					25px 25px 1px #66644d,
+					26px 26px 1px #66644d,
+					27px 27px 1px #66644d,
+					28px 28px 1px #66644d,
+					29px 29px 1px #66644d,
+					30px 30px 1px #66644d;
         }
 
-        .hero-students > div {
+        .logo {
+          align-items: center;
+          display: flex;
+          margin-left: 70px;
+          flex-basis: content;
+          flex-direction: column;
+        }
+
+        .logo > div {
           font-family: 'Bagel Fat One', cursive;
           max-width: 640px;
           text-align: center;
@@ -553,6 +709,18 @@
           }
         }
 
+        .sticker {
+            position : absolute;
+	        left: 4px;
+	        top: -155px;
+        }
+
+        .sticker2 {
+            position : absolute;
+	        left: 400px;
+	        top: -155px;
+        }
+
     </style>
 </th:block>
 
@@ -585,7 +753,30 @@
         </div>
     </header>
 
-    <div class="hero-students">
+    <h2>New<br>Update</h2>
+
+    <div class="wrapper">
+        <th:block th:each="item, status: ${items.getContent()}" th:if="${status.first} == true">
+            <div class="product-img" style="float:left">
+                    <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="420" width="327">
+            </div>
+                    <div class="product-info" style="float:left">
+                      <div class="product-text" style="float:left">
+                        <div class="product-title">[[${item.itemNm}]]</div>
+                        <div class="product-category">Category</div>
+                        <p class="card-text">[[${item.itemDetail}]]</p>
+                      </div>
+                      <div class="product-price-btn">
+                          <p class="price-tag">[[${item.price}]] won</p>
+                          <a th:href="'/item/' +${item.id}" class="text-dark">
+                            <button type="button">More Detail</button>
+                          </a>
+                      </div>
+            </div>
+        </th:block>
+    </div>
+
+    <div class="logo">
         <div>
             <h1>
                 <span data-text="댕댕">댕댕</span><br>
@@ -594,71 +785,65 @@
         </div>
     </div>
 
-    <div class="menu" style="position:relative;">
+    <div class="search-box" style="float:left;">
+        <h6 style="text-align:right; color:red; font-size: 15px; margin-right: 90px; margin-top: 350px; margin-bottom: 20px;">▼ 찾으시는 상품을 검색해보세요!</h6>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
+            <input name="searchQuery" class="form-control mr-sm-2" type="search"  placeholder="ex) 강아지 하네스" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="menu" style="position:sticky;">
+        <div class="sticker">
+            <img src="https://cdn-icons-png.flaticon.com/256/7286/7286620.png">
+        </div>
+        <div class="sticker2">
+            <img src="https://cdn-icons-png.flaticon.com/256/5965/5965356.png">
+        </div>
         <br>
         <span class="decor"></span>
         <nav class="mini-nav">
             <ul class="primary">
                 <li>
-                    <a href="" style="color:white">강아지 용품</a>
+                    <a href="" style="color:white">강아지 의류</a>
                     <ul class="sub">
-                        <li><a href="">목줄</a></li>
-                        <li><a href="">의류</a></li>
-                        <li><a href="">Labrador</a></li>
-                        <li><a href="">Mutt</a></li>
+                        <li><a href="">목줄 & 하네스</a></li>
+                        <li><a href="">상하의</a></li>
+                        <li><a href="">신발</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="" style="color:white">사료</a>
+                    <a href="" style="color:white">강아지 용품</a>
                     <ul class="sub">
-                        <li><a href="">Tabby</a></li>
-                        <li><a href="">Black Cat</a></li>
-                        <li><a href="">Wrinkly Cat</a></li>
+                        <li><a href="">하우스</a></li>
+                        <li><a href="">배변판</a></li>
+                        <li><a href="">밥그릇</a></li>
+                        <li><a href="">목욕용품</a></li>
+                        <li><a href="">켄넬</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="" style="color:white">장난감</a>
                     <ul class="sub">
-                        <li><a href="">Humming Bird</a></li>
-                        <li><a href="">Hawk</a></li>
-                        <li><a href="">Crow</a></li>
+                        <li><a href="">노즈워크</a></li>
+                        <li><a href="">공</a></li>
+                        <li><a href="">터그놀이 장난감</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="" style="color:white">Horse</a>
+                    <a href="" style="color:white">사료</a>
                     <ul class="sub">
-                        <li><a href="">Brown Horse</a></li>
-                        <li><a href="">Race Horse</a></li>
-                        <li><a href="">Tall Horse</a></li>
+                        <li><a href="">습식</a></li>
+                        <li><a href="">건식</a></li>
+                        <li><a href="">소프트</a></li>
+                        <li><a href="">껌</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="" style="color:white">Burger</a>
-                    <ul class="sub">
-                        <li><a href="">Cheesy</a></li>
-                        <li><a href="">More Ketchup</a></li>
-                        <li><a href="">Some Mustard</a></li>
-                        <li><a href="">Extra Butter</a></li>
-                    </ul>
+                    <a href="" style="color:white">etc</a>
                 </li>
             </ul>
         </nav>
-    </div>
-
-    <div class="search-box" style="float:left;">
-        <h6 style="text-align:right; color:red; font-size: 15px; margin-right: 90px; margin-top: 440px; margin-bottom: 20px;">▼ 찾으시는 상품을 검색해보세요!</h6>
-        <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
-            <input name="searchQuery" class="form-control mr-sm-2" type="search"  placeholder="ex) 강아지 하네스" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    </div>
-
-    <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center" style="color:#8761F8">
-                <h1 class="display-5 fw-bolder" style="margin-top:120px; margin-bottom: 20px;">새로 등록된 상품</h1>
-            </div>
-        </div>
     </div>
 
     <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
@@ -666,7 +851,7 @@
         <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
     </div>
 
-    <div class="cards" style="margin-top:120px;">
+    <div class="cards">
         <th:block th:each="item, status: ${items.getContent()}">
         <div class="card">
             <a th:href="'/item/' +${item.id}" class="text-dark">
@@ -676,7 +861,7 @@
                 <p class="card-text">[[${item.itemDetail}]]</p>
             </div>
             <div class="card__footer">
-                <h3 class="card-title text-danger">[[${item.price}]]원</h3>
+                <h3 class="card-title text-danger"> &#8361; [[${item.price}]]</h3>
             </div>
             </a>
         </div>

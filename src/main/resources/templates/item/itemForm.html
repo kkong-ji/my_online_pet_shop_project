@@ -107,7 +107,7 @@
         </div>
         <p th:if="${#fields.hasErrors('stockNumber')}" th:errors="*{stockNumber}" class="fieldError">Incorrect data</p>
 
-        <div class="input-group" style="width:500px;">
+        <div class="input-group" style="width:500px; height:200px;">
             <div class="input-group-prepend">
                 <span class="input-group-text" >상품 상세 내용</span>
             </div>
@@ -116,7 +116,7 @@
         <p th:if="${#fields.hasErrors('itemDetail')}" th:errors="*{itemDetail}" class="fieldError">Incorrect data</p>
 
         <div th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}">
-            <div class="form-group" th:each="num: ${#numbers.sequence(1,5)}">
+            <div class="form-group" th:each="num: ${#numbers.sequence(1,3)}">
                 <div class="custom-file img-div" style="width:400px;">
                     <input type="file" class="custom-file-input" name="itemImgFile">
                     <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
