@@ -51,7 +51,7 @@
         .item-form {
            /* border: 3px solid red; */
            border-radius: 5px;
-           height: 750px;
+           height: 850px;
            width: 600px;
            background-color: #eeeff1;
            padding: 50px;
@@ -85,11 +85,26 @@
 
         <div class="input-group" style="width:350px;">
             <div class="input-group-prepend">
-                <span class="input-group-text" >상품명</span>
+                <span class="input-group-text">상품명</span>
             </div>
-            <input type="text" th:field="*{itemNm}" class="form-control" placeholder="상품명을 입력해주세요" >
+            <input type="text" th:field="*{itemNm}" class="form-control" placeholder="상품명을 입력해주세요">
         </div>
         <p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="fieldError">Incorrect data</p>
+
+        <div class="form-group" style="width:350px;">
+           <div class="input-group-prepend">
+               <span class="input-group-text">상품 카테고리</span>
+               <div class="select-group">
+                   <select th:field="*{itemCategory}" class="custom-select" style="width:250px;">
+                       <option value="의류">의류</option>
+                       <option value="강아지 용품">강아지 용품</option>
+                       <option value="장난감">장난감</option>
+                       <option value="음식">음식</option>
+                       <option value="기타">기타</option>
+                   </select>
+               </div>
+           </div>
+        </div>
 
         <div class="input-group" style="width:350px;">
             <div class="input-group-prepend">

@@ -20,6 +20,8 @@ public class ItemFormDto {          // 상품 데이터 정보를 전달하는 D
     @NotBlank(message = "상품명은 필수 입력 값입니다.")
     private String itemNm;
 
+    private String itemCategory;
+
     @NotNull(message = "가격은 필수 입력 값입니다.")
     private Integer price;
 

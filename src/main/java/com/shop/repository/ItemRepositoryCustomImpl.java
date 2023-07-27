@@ -56,7 +56,6 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         } else if (StringUtils.equals("createdBy", searchBy)) {
             return QItem.item.createdBy.like("%" + searchQuery + "%");
         }
-
         return null;
     }
 
@@ -98,6 +97,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                         new QMainItemDto(               // QMainItemDto의 생성자에 반환할 값들을 넣어줌
                                 item.id,
                                 item.itemNm,
+                                item.itemCategory,
                                 item.itemDetail,
                                 itemImg.imgUrl,
                                 item.price)

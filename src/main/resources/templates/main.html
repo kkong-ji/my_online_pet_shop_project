@@ -848,7 +848,7 @@
                     <div class="product-info" style="float:left">
                       <div class="product-text" style="float:left">
                         <div class="product-title">[[${item.itemNm}]]</div>
-                        <div class="product-category">Category</div>
+                        <div class="product-category">[[${item.itemCategory}]]</div>
                         <p class="card-text">[[${item.itemDetail}]]</p>
                       </div>
                       <div class="product-price-btn">
@@ -950,7 +950,7 @@
                 </div>
             </a>
           <div class="product-details">
-            <span class="product-catagory">강아지 용품</span>
+            <span class="product-catagory">[[${item.itemCategory}]]</span>
                 <h4><a th:href="'/item/' +${item.id}" class="text-dark">[[${item.itemNm}]]</a></h4>
                 <p>[[${item.itemDetail}]]</p>
             <div class="product-bottom-details">
