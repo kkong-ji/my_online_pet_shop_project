@@ -122,7 +122,7 @@
 
     </div>
 
-    <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" >
+    <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" style="margin-top:200px;">
         <ul class="pagination justify-content-center">
 
             <li class="page-item" th:classappend="${orders.number eq 0}?'disabled':''">
