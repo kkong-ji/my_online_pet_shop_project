@@ -62,6 +62,22 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         return null;
     }
 
+    private BooleanExpression searchByCategory(String searchItemCategory, String searchQuery){
+
+        if(StringUtils.equals("의류", searchItemCategory)){
+            return QItem.item.itemCategory.like("의류" + searchQuery);
+        } else if(StringUtils.equals("강아지 용품", searchItemCategory)){
+            return QItem.item.itemCategory.like("강아지 용품" + searchQuery);
+        } else if(StringUtils.equals("장난감", searchItemCategory)) {
+            return QItem.item.itemCategory.like("장난감" + searchQuery);
+        } else if(StringUtils.equals("사료(껌)", searchItemCategory)) {
+            return QItem.item.itemCategory.like("사료(껌)" + searchQuery);
+        } else if(StringUtils.equals("기타", searchItemCategory)) {
+            return QItem.item.itemCategory.like("기타" + searchQuery);
+        }
+        return null;
+    }
+
     @Override
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
 
@@ -69,6 +85,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 .selectFrom(QItem.item)
                 .where(regDtsAfter(itemSearchDto.getSearchDateType()),
                         searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
+                        searchByCategory(itemSearchDto.getSearchItemCategory(), itemSearchDto.getSearchQuery()),
                         searchByLike(itemSearchDto.getSearchBy(),
                                 itemSearchDto.getSearchQuery()))
                 .orderBy(QItem.item.id.desc())
@@ -79,6 +96,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         long total = queryFactory.select(Wildcard.count).from(QItem.item)
                 .where(regDtsAfter(itemSearchDto.getSearchDateType()),
                         searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
+                        searchByCategory(itemSearchDto.getSearchItemCategory(), itemSearchDto.getSearchQuery()),
                         searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))
                 .fetchOne()
                 ;
