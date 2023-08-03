@@ -9,13 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
@@ -87,7 +86,7 @@ public class ItemController {
         }
 
         try {
-            itemService.saveItem(itemFormDto, itemImgFileList);
+            itemService.updateItem(itemFormDto, itemImgFileList);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
             return "item/itemForm";
@@ -99,7 +98,7 @@ public class ItemController {
     @GetMapping(value = {"/admin/items", "/admin/items/{page}"})            // 상품 관리 화면 진입 시 URL에 페이지 번호가 없는 경우와 페이지 번호가 있는 경우 2가지 매핑
     public String itemManage(ItemSearchDto itemSearchDto,
                              @PathVariable("page") Optional<Integer> page, Model model) {
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
         Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);   // 조회 조건과 페이징 정보를 파라미터로 넘겨서 Page<Item> 객체를 반환받음
         model.addAttribute("items", items);                             // 조회한 상품 데이터 및 페이징 정보를 뷰에 전달
         model.addAttribute("itemSearchDto", itemSearchDto);             // 페이지 전환 시 기존 검색 조건을 유지한 채 이동할 수 있도록 뷰에 다시 전달
