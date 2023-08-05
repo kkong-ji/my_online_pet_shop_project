@@ -14,8 +14,20 @@
             }
 
             bindDomEvent();
-
         });
+
+        $(function(){
+            $(document).on("change","#selectBox", function() {
+            let val = this.value;
+            if (val == 'SELL') {
+                document.getElementById("price").value = '';
+                $("#price").attr("readonly",false);
+            } else {
+                document.getElementById("price").value = '0';
+                $("#price").attr("readonly",true);
+                }
+            });
+         });
 
         function bindDomEvent(){
             $(".custom-file-input").on("change", function() {
@@ -76,13 +88,18 @@
      <div class="item-form">
         <input type="hidden" th:field="*{id}">
 
-        <div class="form-group">
-            <select th:field="*{itemSellStatus}" class="custom-select" style="width:250px;">
+        <div class="selectBox">
+            <div class="input-group-prepend">
+                <span class="input-group-text">판매 상태</span>
+
+            <select th:field="*{itemSellStatus}" id="selectBox" name="selectBox" class="custom-select" style="width:250px;">
+                <option value="none" selected> ========= 선택 ========= </option>
                 <option value="SELL">판매중</option>
                 <option value="SOLD_OUT">품절</option>
             </select>
+            </div>
         </div>
-
+        <br>
         <div class="input-group" style="width:350px;">
             <div class="input-group-prepend">
                 <span class="input-group-text">상품명</span>
@@ -110,7 +127,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">가격</span>
             </div>
-            <input type="number" th:field="*{price}" class="form-control" placeholder="상품의 가격을 입력해주세요">
+            <input type="number" id="price" name="price" th:field="*{price}" class="form-control" placeholder="상품의 가격을 입력해주세요" readonly>
         </div>
         <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="fieldError">Incorrect data</p>
 

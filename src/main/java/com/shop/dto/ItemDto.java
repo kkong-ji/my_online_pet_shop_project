@@ -1,5 +1,6 @@
 package com.shop.dto;
 
+import com.shop.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,8 @@ public class ItemDto {
     private String itemNm;
 
     private String itemCategory;
+
+    private ItemSellStatus itemSellStatus;
 
     private Integer price;
 

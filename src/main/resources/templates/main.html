@@ -199,7 +199,7 @@
           font-family: 'IBM Plex Sans KR', sans-serif;
           font-weight: 400;
           text-transform: uppercase;
-          color: #d2d2d2;
+          color: grey;
           letter-spacing: 0.2em;
         }
 
@@ -951,11 +951,21 @@
                 </div>
             </a>
           <div class="product-details">
-            <span class="product-catagory">[[${item.itemCategory}]]</span>
+              <span class="product-category">[[${item.itemCategory}]]</span>
+                  <br>
+                  <br>
+                  <span th:if="${item.price} > 0" class="badge badge-primary mgb-15">
+                        판매중
+                  </span>
+                  <span th:if="${item.price} == 0" class="badge btn-danger mgb-15">
+                        품절
+                  </span>
                 <h4><a th:href="'/item/' +${item.id}" class="text-dark">[[${item.itemNm}]]</a></h4>
                 <p class="card-text">[[${item.itemDetail}]]</p>
             <div class="product-bottom-details">
-                <div class="product-price">&#8361; [[${item.price}]]</div>
+                <span th:if="${item.price != 0}">
+                    <div class="product-price">&#8361; [[${item.price}]]</div>
+                </span>
                 <div class="product-links">
                     <a href=""><i class="fa fa-heart"></i></a>
                     <a href=""><i class="fa fa-shopping-cart"></i></a>

@@ -163,11 +163,13 @@
             <div class="text-right">
                 <div class="h5 text-left">
                     <input type="hidden" th:value="${item.price}" id="price" name="price">
-                    <div style="float:left; line-height: 1.5;">가격: </div>
-                        <span th:text="${item.price}" style="line-height: 1.5;"></span>원
-                    <div style="text-align: left; line-height: 1.5;">배송비:2500원</div>
-                    <h6 style="float:left; font-size:13px;">도서산간지역 배송비 5000원/3만원 이상 결제시 무료배송</h6>
-                    <div style="float:left; line-height: 1.5;">적립금:2030원</div>
+                    <div th:if="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}">
+                        <div style="float:left; line-height: 1.5;">가격: </div>
+                            <span th:text="${item.price}" style="line-height: 1.5;"></span>원
+                        <div style="text-align: left; line-height: 1.5;">배송비:2500원</div>
+                        <h6 style="float:left; font-size:13px;">도서산간지역 배송비 5000원/3만원 이상 결제시 무료배송</h6>
+                        <div style="float:left; line-height: 1.5;">적립금:2030원</div>
+                    </div>
                 </div>
                 <br>
                 <br>
@@ -179,16 +181,15 @@
                 </div>
             </div>
             <hr class="my-4">
-
             <div th:if="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="text-right mgt-50">
                 <h5>결제 금액</h5>
                 <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
             </div>
+            <div th:unless="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="text-right">
+                해당 상품은 품절되었습니다.
+            </div>
             <div th:if="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="text-right">
                 <button type="button" class="btn btn-light border border-primary btn-lg" onclick="addCart()">장바구니 담기</button>
-            </div>
-            <div th:unless="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="text-right">
-                <button type="button" class="btn btn-danger btn-lg">품절</button>
             </div>
         </div>
     </div>

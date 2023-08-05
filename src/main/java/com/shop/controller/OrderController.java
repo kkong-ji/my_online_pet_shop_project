@@ -27,6 +27,12 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    @GetMapping(value = "/orderConfirm")
+    public String orderConfirm(Model model) {
+        return "order/orderConfirm";
+    }
+
+
     @PostMapping(value = "/order")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto
             , BindingResult bindingResult, Principal principal){                        // 스프링에서 비동기 처리를 할 때
