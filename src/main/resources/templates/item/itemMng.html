@@ -64,7 +64,6 @@
                 <td th:text="${item.id}"></td>
                 <td>
                     <a th:href="'/admin/item/'+${item.id}" th:text="${item.itemNm}"></a>
-
                 </td>
                 <td th:text="${item.itemCategory}"></td>
                 <td th:text="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL} ? '판매중' : '품절'"></td>
@@ -111,11 +110,11 @@
             </select>
             <select th:field="*{searchItemCategory}" class="form-control" style="width:auto;">
                 <option value="">카테고리</option>
-                <option value="의류">의류</option>
-                <option value="강아지 용품">강아지 용품</option>
-                <option value="장난감">장난감</option>
-                <option value="사료(껌)">사료(껌)</option>
-                <option value="기타">기타</option>
+                <option value="[의류]">의류</option>
+                <option value="[강아지 용품]">강아지 용품</option>
+                <option value="[장난감]">장난감</option>
+                <option value="[사료(껌)]">사료(껌)</option>
+                <option value="[기타]">기타</option>
             </select>
             <select th:field="*{searchBy}" class="form-control" style="width:auto;">
                 <option value="itemNm">상품명</option>

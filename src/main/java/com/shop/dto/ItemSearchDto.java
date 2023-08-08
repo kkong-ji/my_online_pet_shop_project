@@ -16,4 +16,5 @@ public class ItemSearchDto {
     private String searchBy;                        // 상품 조회시 어떤 유형으로 조회할지 선택
                                                     // itemNm : 상품명, createdBy : 상품 등록자 아이디
     private String searchQuery = "";                // 조회할 검색어 저장할 변수
+
 }

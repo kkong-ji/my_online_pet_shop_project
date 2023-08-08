@@ -1,6 +1,6 @@
 package com.shop.repository;
 
-import com.querydsl.core.QueryResults;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -64,16 +64,16 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
 
     private BooleanExpression searchByCategory(String searchItemCategory, String searchQuery){
 
-        if(StringUtils.equals("의류", searchItemCategory)){
-            return QItem.item.itemCategory.like("의류" + searchQuery);
-        } else if(StringUtils.equals("강아지 용품", searchItemCategory)){
-            return QItem.item.itemCategory.like("강아지 용품" + searchQuery);
-        } else if(StringUtils.equals("장난감", searchItemCategory)) {
-            return QItem.item.itemCategory.like("장난감" + searchQuery);
-        } else if(StringUtils.equals("사료(껌)", searchItemCategory)) {
-            return QItem.item.itemCategory.like("사료(껌)" + searchQuery);
-        } else if(StringUtils.equals("기타", searchItemCategory)) {
-            return QItem.item.itemCategory.like("기타" + searchQuery);
+        if(StringUtils.equals("[의류]", searchItemCategory)){
+            return QItem.item.itemCategory.like("[의류]" + searchQuery);
+        } else if(StringUtils.equals("[강아지 용품]", searchItemCategory)){
+            return QItem.item.itemCategory.like("[강아지 용품]" + searchQuery);
+        } else if(StringUtils.equals("[장난감]", searchItemCategory)) {
+            return QItem.item.itemCategory.like("[장난감]" + searchQuery);
+        } else if(StringUtils.equals("[사료(껌)]", searchItemCategory)) {
+            return QItem.item.itemCategory.like("[사료(껌)]" + searchQuery);
+        } else if(StringUtils.equals("[기타]", searchItemCategory)) {
+            return QItem.item.itemCategory.like("[기타]" + searchQuery);
         }
         return null;
     }
@@ -104,9 +104,20 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         return new PageImpl<>(content, pageable, total);
     }
 
-    private BooleanExpression itemNmLike(String searchQuery){
-        return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemNm.like("%" + searchQuery + "%");
+    private BooleanBuilder itemNmLike(String searchQuery){
+        BooleanBuilder builder = new BooleanBuilder();
+
+        builder.or(QItem.item.itemNm.like("%" + searchQuery + "%"));
+        return builder;
     }
+
+    private BooleanBuilder itemCategoryLike(String searchQuery){
+        BooleanBuilder builder = new BooleanBuilder();
+
+        builder.or(QItem.item.itemCategory.like("%" + searchQuery + "%"));
+        return builder;
+    }
+
 
     @Override
     public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
@@ -126,7 +137,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 .from(itemImg)
                 .join(itemImg.item, item)
                 .where(itemImg.repimgYn.eq("Y"))
-                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .where(itemNmLike(itemSearchDto.getSearchQuery()).or(itemCategoryLike(itemSearchDto.getSearchQuery())))
                 .orderBy(item.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -137,7 +148,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 .from(itemImg)
                 .join(itemImg.item, item)
                 .where(itemImg.repimgYn.eq("Y"))
-                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .where(itemNmLike(itemSearchDto.getSearchQuery()).or(itemCategoryLike(itemSearchDto.getSearchQuery())))
                 .fetchOne()
                 ;
 
