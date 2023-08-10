@@ -54,7 +54,7 @@ public class SecurityConfig {
 
         http.authorizeRequests()                        // 시큐리티 처리에 HttpServletRequest를 이용한다는 것을 의미
                 .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()    // 모든 사용자가 인증(로그인) 없이 해당 경로에 접근할 수 있도록 설정
-                .mvcMatchers("/", "/members/**", "/item/**", "/images/**", "/mail/**").permitAll()
+                .mvcMatchers("/", "/members/**", "/item/**", "/images/**", "/mail/**", "/search/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")      // /admin으로 시작하는 경로는 해당 계정이 ADMIN Role일 경우에만 접근 가능하도록 설정
                 .anyRequest().authenticated()           // 위에서 설정해준 경로를 제외한 나머지 경로들은 모두 인증을 요구하도록 설정
                 .and()
