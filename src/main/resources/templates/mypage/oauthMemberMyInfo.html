@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
 <!-- 사용자 CSS 추가 -->
@@ -83,11 +83,14 @@
             <input type="text" th:value="${member.detailaddress}" class="form-control" readonly>
         </div>
         <br></br>
-        <div style="text-align: center">
+        <div style="text-align: center" >
             <button type="button" onclick="location.href='/'">홈으로</button>
         </div>
+        <div style="text-align: center">
+            <!-- 버튼 클릭시 바로 회원정보 변경할 수 있게끔 변경해야함 -->
+            <button type="button" onClick="location.href='/'">회원정보 변경</button>
+        </div>
         <br></br>
-
         <div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         </div>

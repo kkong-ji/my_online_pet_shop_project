@@ -1,17 +1,18 @@
 package com.shop.service;
 
-import com.shop.dto.MailDto;
+import com.shop.dto.MemberUpdateDto;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class MemberService implements UserDetailsService {  // @RequiredArgsCons
 
     private final MemberRepository memberRepository;
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     public Member saveMember(Member member){
         validateDuplicateMember(member);
         return memberRepository.save(member);
@@ -34,6 +38,32 @@ public class MemberService implements UserDetailsService {  // @RequiredArgsCons
         if(findMember != null) {
             throw new IllegalStateException("이미 가입된 회원입니다.");   // 이미 가입된 회원인 경우 예외 처리
         }
+    }
+
+    /** 비밀번호 일치 확인 **/
+    @ResponseBody
+    public boolean checkPassword(Member member, String checkPassword) {
+
+        Member findMember = memberRepository.findByEmail(member.getEmail());
+        if(findMember == null) {
+            throw new IllegalStateException("없는 회원입니다.");
+        }
+        String realPassword = member.getPassword();
+        boolean matches = passwordEncoder.matches(checkPassword, realPassword);
+        System.out.println(matches);
+        return matches;
+    }
+
+    /** 회원정보 수정 **/
+    public Long updateMember(MemberUpdateDto memberUpdateDto) {
+        Member member = memberRepository.findByEmail(memberUpdateDto.getEmail());
+        member.updateUsername(memberUpdateDto.getName());
+        member.updateAddress(memberUpdateDto.getZipcode());
+        member.updateStreetAddress(memberUpdateDto.getStreetadr());
+        member.updateDetailAddress(memberUpdateDto.getDetailadr());
+        memberRepository.save(member);
+
+        return member.getId();
     }
 
     @Override

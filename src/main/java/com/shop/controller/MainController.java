@@ -40,10 +40,4 @@ public class MainController {
         return "item/itemSearchForm";
     }
 
-    @GetMapping(value = "/mypage")
-    public String profile(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
-
-        model.addAttribute("principal", principalDetails.getMember());
-        return "mypage/myInfo";
-    }
 }

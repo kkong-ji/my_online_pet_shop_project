@@ -3,6 +3,7 @@ package com.shop.controller;
 import com.shop.config.auth.PrincipalDetails;
 import com.shop.dto.MailDto;
 import com.shop.dto.MemberFormDto;
+import com.shop.dto.MemberUpdateDto;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
 import com.shop.service.MailService;
@@ -19,11 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.shop.constant.Role.*;
 
@@ -106,19 +109,6 @@ public class MemberController {
         return "/member/memberLoginForm";
     }
 
-    // 회원 아이디 찾기
-    @RequestMapping(value = "/findId", method = RequestMethod.POST)
-    @ResponseBody
-    public String findId(@RequestParam("memberEmail") String memberEmail) {
-        String email = String.valueOf(memberRepository.findByEmail(memberEmail));
-        System.out.println("회원 이메일 = " + email);
-        if(email == null) {
-            return null;
-        } else {
-            return email;
-        }
-    }
-
     // 회원 비밀번호 찾기
     @GetMapping(value = "/findMember")
     public String findMember(Model model) {
@@ -186,6 +176,41 @@ public class MemberController {
         return "null";
     }
 
+    /* 회원 수정하기 전 비밀번호 확인 */
+    @GetMapping("/checkPwdForm")
+    public String checkPwdView(){
+        return "member/passwordCheckForm";
+    }
 
+    @GetMapping("/checkPwd")
+    @ResponseBody
+    public boolean checkPassword(Principal principal, Member member,
+                                 @RequestParam String checkPassword,
+                                 Model model){
+
+        String loginId = principal.getName();
+
+        Member memberId = memberRepository.findByEmail(loginId);
+
+        return memberService.checkPassword(memberId, checkPassword);
+    }
+
+    // 회원 정보 변경 폼
+    @GetMapping(value = "/updateForm")
+    public String updateMemberForm(Principal principal, Model model) {
+        String loginId = principal.getName();
+        Member memberId = memberRepository.findByEmail(loginId);
+        model.addAttribute("member", memberId);
+
+        return "/settings/memberUpdateForm";
+    }
+
+    // 회원 정보 변경
+    @PostMapping(value = "/updateForm")
+    public String updateMember(@Valid MemberUpdateDto memberUpdateDto, Principal principal, Model model) {
+        model.addAttribute("member", memberUpdateDto);
+        memberService.updateMember(memberUpdateDto);
+        return "redirect:/members/myInfo";
+    }
 
 }
