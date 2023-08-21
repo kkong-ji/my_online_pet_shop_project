@@ -95,6 +95,7 @@ public class MailService {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String encodePw = encoder.encode(str);
             Member member = memberRepository.findByEmail(email);
+            member.updateOriginalPassword(str);
             member.updatePassword(encodePw);
             memberRepository.save(member);
             return true;

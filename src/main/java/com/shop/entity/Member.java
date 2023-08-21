@@ -142,6 +142,10 @@ public class Member extends BaseEntity implements UserDetails {                 
         this.password = password;
       }
 
+    public void updateOriginalPassword(String originalpassword) {
+        this.originalpassword = originalpassword;
+    }
+
     public void updateAddress(String address) { this.address = address; }
 
     public void updateStreetAddress(String streetaddress) { this.streetaddress = streetaddress; }

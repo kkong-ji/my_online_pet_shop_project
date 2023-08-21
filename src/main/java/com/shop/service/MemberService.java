@@ -43,7 +43,6 @@ public class MemberService implements UserDetailsService {  // @RequiredArgsCons
     /** 비밀번호 일치 확인 **/
     @ResponseBody
     public boolean checkPassword(Member member, String checkPassword) {
-
         Member findMember = memberRepository.findByEmail(member.getEmail());
         if(findMember == null) {
             throw new IllegalStateException("없는 회원입니다.");
@@ -54,6 +53,7 @@ public class MemberService implements UserDetailsService {  // @RequiredArgsCons
         return matches;
     }
 
+
     /** 회원정보 수정 **/
     public Long updateMember(MemberUpdateDto memberUpdateDto) {
         Member member = memberRepository.findByEmail(memberUpdateDto.getEmail());
@@ -61,6 +61,13 @@ public class MemberService implements UserDetailsService {  // @RequiredArgsCons
         member.updateAddress(memberUpdateDto.getZipcode());
         member.updateStreetAddress(memberUpdateDto.getStreetadr());
         member.updateDetailAddress(memberUpdateDto.getDetailadr());
+        member.updateOriginalPassword(memberUpdateDto.getPassword());
+
+        // 회원 비밀번호 수정을 위한 패스워드 암호화
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodePw = encoder.encode(memberUpdateDto.getPassword());
+        member.updatePassword(encodePw);
+
         memberRepository.save(member);
 
         return member.getId();

@@ -20,13 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.shop.constant.Role.*;
 
@@ -107,6 +105,19 @@ public class MemberController {
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
         return "/member/memberLoginForm";
+    }
+
+    // 회원 아이디 찾기
+    @RequestMapping(value = "/findId", method = RequestMethod.POST)
+    @ResponseBody
+    public String findId(@RequestParam("memberEmail") String memberEmail) {
+        String email = String.valueOf(memberRepository.findByEmail(memberEmail));
+        System.out.println("회원 이메일 = " + email);
+        if(email == null) {
+            return null;
+        } else {
+            return email;
+        }
     }
 
     // 회원 비밀번호 찾기
@@ -191,7 +202,7 @@ public class MemberController {
         String loginId = principal.getName();
 
         Member memberId = memberRepository.findByEmail(loginId);
-
+        System.out.println(memberId.getPassword());
         return memberService.checkPassword(memberId, checkPassword);
     }
 
@@ -212,5 +223,6 @@ public class MemberController {
         memberService.updateMember(memberUpdateDto);
         return "redirect:/members/myInfo";
     }
+
 
 }
