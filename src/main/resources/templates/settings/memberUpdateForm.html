@@ -152,18 +152,18 @@
                 <label th:for="email">이메일</label>
                 <input type="email" name="email" th:value="${member.email}" id="email" class="form-control" style="width:250px;" readonly>
             </div>
-            <div class="form-group">
+            <div class="form-group" th:if="${#strings.equals(member.role, 'ADMIN')}">
                 <label th:for="password">비밀번호</label>
                 <input type="text" name="password" th:value="${member.originalpassword}" id="password" class="form-control" style="width:250px;" readonly>
             </div>
-            <div class="form-group">
+            <div class="form-group" th:if="${#strings.equals(member.role, 'ADMIN')}">
                 <input type="password" id="passwordConfirm" class="form-control" placeholder="비밀번호 재입력" style="width:250px;" readonly>
                 <span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span>
                 <span class="pwck_input_re_1" id="pwck_input_re_1">비밀번호 일치</span>
                 <span class="pwck_input_re_2" id="pwck_input_re_2">비밀번호 불일치</span>
             </div>
             <span id="confirmMsg"></span>
-            <button type="button" id="changePassword" class="btn btn-outline-primary btn-sm">비밀번호 변경</button>
+            <button type="button" id="changePassword" th:if="${#strings.equals(member.role, 'ADMIN')}" class="btn btn-outline-primary btn-sm">비밀번호 변경</button>
             <br>
             <br>
             <div class="form-group">
@@ -171,7 +171,7 @@
                 <input type="text" name="name" th:value="${member.name}" id="name" class="form-control" style="width:250px;">
             </div>
             <div class="form-group">
-                <label th:for="name">회원</label>
+                <label th:for="role">회원</label>
                 <h5 th:text="일반회원" th:if="${#strings.equals(member.role, 'USER')}"  id="role1" class="form-control" style="width:250px;" readonly></h5>
                 <h5 th:text="관리자" th:if="${#strings.equals(member.role, 'ADMIN')}"  id="role2" class="form-control" style="width:250px;" readonly></h5>
             </div>

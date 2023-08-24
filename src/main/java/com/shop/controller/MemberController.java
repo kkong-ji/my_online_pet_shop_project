@@ -218,7 +218,7 @@ public class MemberController {
 
     // 회원 정보 변경
     @PostMapping(value = "/updateForm")
-    public String updateMember(@Valid MemberUpdateDto memberUpdateDto, Principal principal, Model model) {
+    public String updateMember(@Valid MemberUpdateDto memberUpdateDto, Model model) {
         model.addAttribute("member", memberUpdateDto);
         memberService.updateMember(memberUpdateDto);
         return "redirect:/members/myInfo";
