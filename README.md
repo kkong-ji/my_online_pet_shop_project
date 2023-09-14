@@ -80,4 +80,42 @@
 - Qdsl을 학습 후, JPQL 방식이 아닌 Qdsl 방식 채택
 - QueryDslPredicateExecutor 인터페이스 상속
 
+### 기본적인 상품 등록, 수정, 관리 가능
+쇼핑몰이라면 갖추어야할 상품을 등록하고 수정하며 관리할 수 있는 기능을 모두 구현하였습니다.
+
+### 회원가입 시 이메일 인증 기능 구현
+- spring-boot-starter-mail 라이브러리 사용
+- application.properties 에 구글 smtp 설정 추가
+- mail controller와 mail service 설계
+- 마주한 에러와 해결과정
+    - `401 error`  
+
+      : 다음과 같이 http.authorizeRequests()에 /mail/과 관련된 경로를 모두 permitAll() 해줌으로써 권한문제 해결
+    ```java
+    http.authorizeRequests()                        
+                    .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()   
+                    .mvcMatchers("/", "/members/**", "/item/**", "/images/**", "/mail/**").permitAll()
+    ```
+    
+    - `403 error` 에러 발생  
+    
+     : csrf를 disable 함으로써 문제 해결
+    ```java
+    http.authorizeRequests()                       
+                    .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()  
+                    .mvcMatchers("/", "/members/**", "/item/**", "/images/**", "/mail/**").permitAll()
+                    .mvcMatchers("/admin/**").hasRole("ADMIN")    
+                    .anyRequest().authenticated()
+                    .and()
+                    .csrf().ignoringAntMatchers("/mail/**") // csrf disable 설정 
+            ;
+    ```
+   
+  
+(작동 예시)
+![1](https://github.com/kkong-ji/my_online_pet_shop_project/assets/87354210/2e1c8dcb-e242-4b80-b6cf-7d00d3c9d82c)
+![2](https://github.com/kkong-ji/my_online_pet_shop_project/assets/87354210/a19d841f-cf79-47ff-9c0b-6525392c85d1)
+![3](https://github.com/kkong-ji/my_online_pet_shop_project/assets/87354210/b411ab9c-6239-44ff-a17b-af8b7c374988)
+![4](https://github.com/kkong-ji/my_online_pet_shop_project/assets/87354210/b3ced86e-b41e-4256-95a3-ddb7466f21c3)
+![5](https://github.com/kkong-ji/my_online_pet_shop_project/assets/87354210/3704ab17-e502-4746-99c4-fbe82235e539)
 
