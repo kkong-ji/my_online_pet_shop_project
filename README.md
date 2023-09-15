@@ -58,6 +58,13 @@
 
 ## 핵심기능
 
+### 페이지 권한 설정
+- 상품 등록에 관한 페이지는 관리자(ADMIN) 계정에서만 접속가능
+- 일반 (USER) 사용자는 그 외에만 접속 가능
+
+`Authentication EntryPoint` 인터페이스를 구현하여, 인증되지 않은 사용자가 리소스를 요청할 경우, "Unauthorized" 에러를 발생시키도록 함.
+SecurityConfig에 `http.exceptionHandling()` 로 예외처리를 수행하도록 핸들러를 구성.
+
 ### 소셜 로그인 (google)
 - Spring Security
 - OAuth2 인증 방식 사용
@@ -118,4 +125,25 @@
 ![3](https://github.com/kkong-ji/my_online_pet_shop_project/assets/87354210/b411ab9c-6239-44ff-a17b-af8b7c374988)
 ![4](https://github.com/kkong-ji/my_online_pet_shop_project/assets/87354210/b3ced86e-b41e-4256-95a3-ddb7466f21c3)
 ![5](https://github.com/kkong-ji/my_online_pet_shop_project/assets/87354210/3704ab17-e502-4746-99c4-fbe82235e539)
+
+### 로그인 시 회원 정보를 잃어버렸을 경우, 임시 비밀번호 전송하기 기능
+https://velog.io/@kjh950330/%ED%9A%8C%EC%9B%90-%EC%9E%84%EC%8B%9C-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%A0%84%EC%86%A1-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84
+
+- 마주한 에러와 해결과정
+    - SMTP 구문 오류
+     : 윈도우 계정을 영어로 바꾸어서 해결
+    - 401 error
+     : csrf 예외처리 설정을 통해 해결    
+
+
+## 프로젝트를 통해 느낀점
+
+사실 혼자서 공부를 하거나 강의를 들으며 간단하게 프로젝트를 만들었던 적은 있지만 스스로 모든 것을 기획하며 <br>
+구글링과 도서를 참고하며 프로젝트를  만든 것은 처음이다보니 시간이 오래걸리고, 상당히 많은 부분을 오류와 싸우게 되었습니다.
+<br>
+그러나, 오류를 해결하고 생각했던 대로 정상적으로 기능이 작동하는 것을 볼 때, 스스로도 뿌듯함을 느끼기도 했습니다.
+아직 부족한 점이 많고 더욱 배워야할 것들이 많지만 지금의 프로젝트 경험이 자양분이 되어 앞으로 어떤 것을 공부하고자 할 때,
+방향성을 주었다고 생각합니다.
+<br>
+이 프로젝트는 향후 지속적으로 더 많은 기능들을 업데이트하며 추가할 계획이고, 앞으로 어떤 기능을 추가할지는 고민중에 있습니다.
 
