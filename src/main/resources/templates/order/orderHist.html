@@ -10,7 +10,6 @@
 
 <!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
-
     <script th:inline="javascript">
         function cancelOrder(orderId) {
             var token = $("meta[name='_csrf']").attr("content");
@@ -49,7 +48,6 @@
             });
         }
     </script>
-
 </th:block>
 
 <!-- 사용자 CSS 추가 -->
@@ -82,6 +80,7 @@
         .fs24{
             font-size:24px
         }
+
     </style>
 </th:block>
 
@@ -91,21 +90,16 @@
     <h2 class="mb-4">
         구매 이력
     </h2>
-
     <div th:each="order : ${orders.getContent()}">
-
         <div class="d-flex mb-3 align-self-center">
-            <h4 th:text="${order.orderDate} + ' 주문'"></h4>
+            <h4 th:if="${order.orderStatus == T(com.shop.constant.OrderStatus).ORDER}" th:text="${order.orderDate} + ' 주문'"></h4>
             <div class="ml-3">
                 <th:block th:if="${order.orderStatus == T(com.shop.constant.OrderStatus).ORDER}">
                     <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
                 </th:block>
-                <th:block th:unless="${order.orderStatus == T(com.shop.constant.OrderStatus).ORDER}">
-                    <h4>(취소 완료)</h4>
-                </th:block>
             </div>
         </div>
-        <div class="card d-flex">
+        <div th:if="${order.orderStatus == T(com.shop.constant.OrderStatus).ORDER}" class="card d-flex">
             <div th:each="orderItem : ${order.orderItemDtoList}" class="d-flex mb-3">
                 <div class="repImgDiv">
                     <img th:src="${orderItem.imgUrl}" class = "rounded repImg" th:alt="${orderItem.itemNm}">
@@ -119,31 +113,25 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" style="margin-top:200px;">
         <ul class="pagination justify-content-center">
-
             <li class="page-item" th:classappend="${orders.number eq 0}?'disabled':''">
                 <a th:href="@{'/orders/' + ${orders.number-1}}" aria-label='Previous' class="page-link">
                     <span aria-hidden='true'>Previous</span>
                 </a>
             </li>
-
             <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${orders.number eq page-1}?'active':''">
                 <a th:href="@{'/orders/' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
             </li>
-
             <li class="page-item" th:classappend="${orders.number+1 ge orders.totalPages}?'disabled':''">
                 <a th:href="@{'/orders/' + ${orders.number+1}}" aria-label='Next' class="page-link">
                     <span aria-hidden='true'>Next</span>
                 </a>
             </li>
-
         </ul>
     </div>
-
 </div>
 
 </html>

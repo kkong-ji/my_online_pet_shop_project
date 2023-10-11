@@ -152,18 +152,18 @@
                 <label th:for="email">이메일</label>
                 <input type="email" name="email" th:value="${member.email}" id="email" class="form-control" style="width:250px;" readonly>
             </div>
-            <div class="form-group" th:if="${#strings.equals(member.role, 'ADMIN')}">
+            <div class="form-group" th:if="${#strings.equals(member.role, 'ADMIN')}  or ${#strings.equals(member.role, 'USER')}">
                 <label th:for="password">비밀번호</label>
                 <input type="text" name="password" th:value="${member.originalpassword}" id="password" class="form-control" style="width:250px;" readonly>
             </div>
-            <div class="form-group" th:if="${#strings.equals(member.role, 'ADMIN')}">
+            <div class="form-group" th:if="${#strings.equals(member.role, 'ADMIN')} or ${#strings.equals(member.role, 'USER')}">
                 <input type="password" id="passwordConfirm" class="form-control" placeholder="비밀번호 재입력" style="width:250px;" readonly>
                 <span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span>
                 <span class="pwck_input_re_1" id="pwck_input_re_1">비밀번호 일치</span>
                 <span class="pwck_input_re_2" id="pwck_input_re_2">비밀번호 불일치</span>
             </div>
             <span id="confirmMsg"></span>
-            <button type="button" id="changePassword" th:if="${#strings.equals(member.role, 'ADMIN')}" class="btn btn-outline-primary btn-sm">비밀번호 변경</button>
+            <button type="button" id="changePassword" th:if="${#strings.equals(member.role, 'ADMIN')} or ${#strings.equals(member.role, 'USER')}" class="btn btn-outline-primary btn-sm">비밀번호 변경</button>
             <br>
             <br>
             <div class="form-group">
