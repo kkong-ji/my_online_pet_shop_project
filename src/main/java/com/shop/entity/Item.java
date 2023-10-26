@@ -25,7 +25,7 @@ public class Item extends BaseEntity {
     private String itemNm;                              // 상품명
 
     @Column(nullable = false)
-    private String itemCategory;                  // 아이템 카테고리
+    private String itemCategory;                        // 아이템 카테고리
 
     @Column(name="price", nullable = false)
     private int price;                                  // 가격
